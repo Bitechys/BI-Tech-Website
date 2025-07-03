@@ -16,7 +16,7 @@ export class HeaderComponent implements AfterViewInit {
 
   tl = gsap.timeline();
   ngAfterViewInit(): void {
-    this.tl.fromTo(".logo", { opacity: 1, y: -150 }, { opacity: 1, y: 0, ease: "bounce", duration: 1.5, delay: 2 })
+    // this.tl.fromTo(".logo", { opacity: 1, y: -150 }, { opacity: 1, y: 0, ease: "bounce", duration: 1.5, delay: 2 })
 
     const googleTranslateElement = this.el.nativeElement.querySelector('#google_translate_element');
 
