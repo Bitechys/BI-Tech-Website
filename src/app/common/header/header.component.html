@@ -1,0 +1,134 @@
+<!-- Navbar & Hero Start -->
+<div class="header ">
+  
+  <div class="container-xxl p-0 " >
+    <nav class="navbar navbar-expand-lg navbar px-4 px-lg-5 py-3 py-lg-0" [class.shadow]="this.isSticky" [class.sticky-top]="this.isSticky" [class.home]="this.router.url == '/home'">
+      <div class="container faunset-i facenter">
+        <a href="" class="navbar-brand p-0 ">
+          <!-- <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Restoran</h1> -->
+          <div class="rel logo_holder">
+            <img src="assets/images/logo/logo_white.png" alt="Logo" class="logo white_logo">
+            <img src="assets/images/logo/logo.png" alt="Logo" class="logo norm_logo">
+          </div>
+        </a>
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+          <span class="fa fa-bars"></span>
+        </button> -->
+        <!-- <button class="btn btn-primary navbar-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+          <span class="fa fa-bars"></span>
+        </button> -->
+        <!-- <div class="g-translate d-flex fcenter ms-3 d-lg-none">
+          <div id="google_translate_element"></div>
+        </div> -->
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ms-auto py-0 h-100 align-items-stretch">
+            <ng-container *ngFor="let item of this.menu; let i = index;">
+              <a routerLink="{{item.url}}" (click)="ScrollTo(item.url)" class="nav-item nav-link">{{item.name}}</a>
+              <div class="nav-item dropdown"  (mouseover)="hover(i)" (mouseout)="hover(-1)">
+                <!-- <a class="nav-link rel" [routerLink]="item.url" routerLinkActive="active" [class.dropdown-toggle]="item.child" data-bs-toggle="dropdown">{{item.name}} <span><img src="assets/image/halal-logo.png" alt="" class="halal_s" *ngIf="item.name == 'Our food'"></span></a> -->
+                <!-- <a *ngIf="item?.href; else routerLink" [attr.href]="item.href" target="_blank" class="nav-link rel">
+                  {{ item.name }}
+                  <span *ngIf="item?.name === 'Our food'">
+                    <img src="assets/image/halal-logo.png" alt="" class="halal_s">
+                  </span>
+                </a>
+                
+                <ng-template #routerLink>
+                  <a [routerLink]="item?.url" class="nav-link rel" routerLinkActive="active" [class.dropdown-toggle]="item?.child" data-bs-toggle="dropdown">
+                    {{ item?.name }}
+                    <span *ngIf="item?.name === 'Our food'">
+                      <img src="assets/image/halal-logo.png" alt="" class="halal_s">
+                    </span>
+                  </a>
+                </ng-template> -->
+                <!-- <div class="dropdown-menu m-0" *ngIf="item.child" [class.show]="this.selected == i">
+                  <ng-container *ngFor="let item1 of this.item.child; let j = index;">
+                    <a [routerLink]="item1.url" class="dropdown-item c-pointer">{{item1.name}}</a>
+                  </ng-container>
+                </div> -->
+              </div>
+            </ng-container>
+          </div>
+          <!-- <a href="" class="btn btn-tertiary py-2 px-4">Book A Table</a> -->
+        </div>
+        
+        <!-- <div class="d-flex fcenter gap-1">
+          <div class="g-translate d-flex fcenter ms-3">
+            <div id="google_translate_element"></div>
+          </div>
+          <button title="Menu" class="btn btn-primary d-lg-none fit-height" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">
+            <span class="fa fa-bars"></span>
+          </button>
+        </div> -->
+      </div>
+    </nav>
+
+  </div>
+</div>
+
+<!-- Navbar & Hero End -->
+
+<!-- <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+  <div class="offcanvas-header pb-0">
+    <div><img src="assets/image/CCChicken.png" alt="" class="sb_img"></div>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body px-0">
+    <div class="custom-off">
+        <ng-container *ngFor="let item of this.service.menu; let i = index;">
+            <div class="sidebar" (click)="show(i)" >
+              <div class="main">
+                <div>{{item.name}}</div>
+                <div class="plus" [class.minus]="this.c_selected[i]" *ngIf="item.child"></div>
+              </div>
+              <ul *ngIf="item.child" [class.show]="this.c_selected[i]">
+                <ng-container *ngFor="let item1 of this.item.child; let j = index;">
+                    <li routerLink="{{item1.url}}">{{item1.name}}</li>
+                </ng-container>
+              </ul>
+            </div>
+          </ng-container>
+    </div>
+  </div>  
+</div> -->
+
+
+<div class="offcanvas-lg offcanvas-start d-lg-none" data-bs-scroll="true" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+  <div class="offcanvas-header pb-0">
+    <!-- <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5> -->
+    <div><img src="assets/image/CCChicken.png" alt="" class="sb_img"></div>
+    <!-- <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-label="Close"></button> -->
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+  
+  </div>
+  <div class="offcanvas-body px-0">
+    <div class="custom-off">
+        <ng-container *ngFor="let item of this.service.menu; let i = index;">
+            <!-- <a routerLink="{{item.url}}" class="nav-item nav-link">{{item.name}}</a> -->
+            <div class="sidebar" (click)="show(i)" >
+              <a class="main" [routerLink]="!item.child ? item.url : null" data-bs-dismiss="offcanvas"  [attr.data-bs-target]="!item.child ? '#offcanvasResponsive' : null">
+                <div class="rel">{{item.name}} <span><img src="assets/image/halal-logo.png" alt="" class="halal_l" *ngIf="item.name == 'Our food'"></span></div>
+                <!-- <div class="plus" [class.minus]="this.c_selected[i]" *ngIf="item.child"></div> -->
+              </a>
+              <!-- <a *ngIf="item?.href; else routerLink" [attr.href]="item?.href" target="_blank" class="main">
+                <div class="rel">{{item.name}} <span><img src="assets/image/halal-logo.png" alt="" class="halal_l" *ngIf="item.name == 'Our food'"></span></div>
+                <div class="plus" [class.minus]="this.c_selected[i]" *ngIf="item.child"></div>
+              </a>
+              
+              <ng-template #routerLink>
+                <a [routerLink]="item?.url" class="main" routerLinkActive="active" data-bs-dismiss="offcanvas"  [attr.data-bs-target]="!item.child ? '#offcanvasResponsive' : null">
+                <div class="rel">{{item.name}} <span><img src="assets/image/halal-logo.png" alt="" class="halal_l" *ngIf="item.name == 'Our food'"></span></div>
+                <div class="plus" [class.minus]="this.c_selected[i]" *ngIf="item.child"></div>
+                </a>
+              </ng-template> -->
+              <!-- <ul *ngIf="item.child" [class.show]="this.c_selected[i]">
+                <ng-container *ngFor="let item1 of this.item.child; let j = index;">
+                    <li routerLink="{{item1.url}}" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive">{{item1.name}}</li>
+                </ng-container>
+              </ul> -->
+            </div>
+          </ng-container>
+    </div>
+  </div>  
+</div>

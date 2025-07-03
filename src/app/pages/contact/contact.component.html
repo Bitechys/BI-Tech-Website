@@ -1,0 +1,78 @@
+<!-- <app-breadcrum [value]="[4]"></app-breadcrum> -->
+
+<div class="dummy_header"></div>
+
+<div class="contact-bg">
+    <div class="container-xxl section pt-0">
+        <div class="container section">
+            <div class="row ">
+                <div class="col-sm-12 col-md-12 col-lg-6 col-lg-6 col-xl-6 pe-4" data-aos="fade-right" data-aos-duration="1000">
+                    <h1>Contact Us</h1>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-lg-6 col-xl-6  ">
+                    <div class="contactbox">
+                        <p class="text-white mt-4 mb-1">EMAIL</p>
+                        <h2 class="text-white">{{this.service.phoneNumber}}</h2>
+                        <p class="text-white mt-4 mb-1">PHONE NUMBER</p>
+                        <h2 class="text-white">{{this.service.mailId}}</h2>
+                        <p class="text-white mt-4 mb-1">ADDRESS</p>
+                        <h2 class="text-white"></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>        
+</div>
+
+<div>
+    <div class="container-xxl section pt-0">
+        <div class="container section">
+            <div class="contact_field" [formGroup]="contactForm">
+                <h2>Write to Us</h2>
+                <p>Feel Free to contact us any time. We will get back to you as soon as we can!.</p>
+                <input type="text" id="name" name="name" class="form-control" id="name"
+                    (keydown)="preventFirstLetterSpace($event)" placeholder="Name"
+                    formControlName="name" />
+                <div class="validateMsg"
+                    *ngIf="contactForm.get('name').invalid && contactForm.get('name').touched">
+                    <div *ngIf="contactForm.get('name').errors.required">Name is required.</div>
+                </div>
+                <input type="email" name="email" formControlName="email" class="form-control"
+                    (keydown)="preventFirstLetterSpace($event)" id="email" placeholder="Email" />
+                <div class="validateMsg"
+                    *ngIf="contactForm.get('email').invalid && contactForm.get('email').touched">
+                    <div *ngIf="contactForm.get('email').errors.required">Email is required.</div>
+                    <div *ngIf="contactForm.get('email').errors.email">Invalid email format.</div>
+                </div>
+                <textarea class="form-control" formControlName="message" name="message"
+                    placeholder="Message" (keydown)="preventFirstLetterSpace($event)" id="message"
+                    style="height: 100px"></textarea>
+                <!-- <button class="contact_form_submit">Send</button> -->
+                <!-- submit button -->
+                <button [disabled]="contactForm.invalid || onSubmit"
+                    class="btn contact_form_submit btn-primary w-100 py-3" (click)="submitEmail()">
+                    <ng-container *ngIf="onSubmit === false; else submittingEmail">
+                        <b>Send</b>
+                    </ng-container>
+                    <ng-template #submittingEmail>
+                        <div>Sending....</div>
+                    </ng-template>
+                </button>
+
+                <!-- Alert -->
+                <div *ngIf="showAlert">
+                    <!-- <p [ngClass]="alertColor" class="font-semibold">
+                {{ alertMessage }}
+            </p> -->
+                    <div *ngIf="formFeed">
+                        <div class="formSuccess">{{ alertMessage }}</div>
+                    </div>
+                    <div *ngIf="!formFeed">
+                        <div class="formFail">{{ alertMessage }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>        
+</div>
+

@@ -1,0 +1,91 @@
+@import "../../../varcolor.scss";
+
+// .sif_header{
+//     background-image: url('../../../assets/img/header-bg.png');
+//     background-position: center;
+//     background-repeat: no-repeat;
+//     background-size: contain;
+//     background-attachment: fixed;
+//     min-height: 100vh;
+//     position: relative;
+
+//     .dummy-bg{
+//         background-color: #212121;
+//         width: 60%;
+//         height: 100%;
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//     }
+//     .dummy-zig{
+//         position: absolute;
+//         bottom: 10%;
+//         right: -20%;
+//     }
+//     .center-item{
+//         height: calc(100vh - 80px);
+//         align-items: center;
+//         z-index: 10;
+//         position: relative;
+//     }
+
+//     @include lg{
+//         background-attachment: scroll;
+//         .center-item{
+//             height: calc(100vh - 60px);
+//             align-items: start;
+//         } 
+//         .dummy-bg{
+//             display: none;
+//         }
+//         .dummy-zig{
+//             zoom: 0.5;
+//             // display: none;
+//         }
+//     }
+// }
+
+
+.sif_header{
+    .sif_bg{
+        background-image: url('../../../assets/img/header-bg.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-attachment: fixed;
+        min-height: 30vh;
+        // padding: 50px 0px;
+        position: relative;
+    }
+    .dummy-zig{
+        position: absolute;
+        top: 1%;
+        right: -30%;
+        z-index: 10;
+        img{
+            width: 70%;
+        }
+    }
+
+    @include lg{
+        .sif_bg{
+            background-attachment: scroll;
+            min-height: 200px;
+            background-size: cover;
+            position: relative;
+        }
+        .dummy-zig{
+            zoom: 0.5;
+            // display: none;
+        }
+    }
+}
+
+.bCon{
+    width: 65%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}

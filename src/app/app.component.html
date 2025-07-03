@@ -1,0 +1,15 @@
+
+<div class="loading" *ngIf="loading">
+    <div><img src="assets/image/load.gif" alt=""></div>
+    <!-- <div class="bold">Loading...</div> -->
+</div>
+
+<div *ngIf="!loading">
+    <div class="test">
+        <app-header></app-header>
+    </div>
+    <div class="" [class.arabicAlign]="this.service.currentLang == 'Arabic'" [class.home]="this.router.url == '/home'">
+        <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+</div>

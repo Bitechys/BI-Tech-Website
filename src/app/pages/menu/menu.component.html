@@ -1,0 +1,87 @@
+<app-breadcrum [value]="[3]"></app-breadcrum>
+
+<div class="menu section">
+    <div class="container">
+        <div class="poster img-fluid">
+            <img src="assets/image/menu/poster1.png" alt="">
+        
+            <div class="con ">
+                <div class="ltxt">THE CRISPY CHICKEN</div>
+                <div class="mtxt">Finger-Lickin' Good</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-section">
+        <div class="container pt-5">
+            <div class="text-center">
+                <!-- <h5 class="section-title ff-secondary text-start text-primary fw-normal" data-aos="fade-right" data-aos-duration="1000">Nourishing Insights</h5> -->
+                <h1 class="mb-4" data-aos="fade-up" data-aos-duration="1000">Chicken Delights</h1>
+            </div>
+    
+            <div class="row fjcenter g-4 mt-3">
+                <ng-container *ngFor="let item of this.card;let i = index;">
+                    <div class="col-lg-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="card" >
+                            <div class="card-img-top">
+                                <img src="{{item.img}}" class="img-fluid wid" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title title">{{item.title}}</h5>
+                                <p class="card-text m-4" [innerHtml]="item.content"></p>
+                                <div class="rate">$ {{item.rate}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="card-section">
+        <div class="container pt-5">
+            <div class="text-center">
+                <!-- <h5 class="section-title ff-secondary text-start text-primary fw-normal" data-aos="fade-right" data-aos-duration="1000">Nourishing Insights</h5> -->
+                <h1 class="mb-4" data-aos="fade-up" data-aos-duration="1000">Steak Sensations</h1>
+            </div>
+    
+            <div class="poster2 img-fluid">
+                <img src="assets/image/menu/poster2.png" alt="">
+            
+                <div class="con ">
+                    <div class="ltxt">Juicy Beef Steak</div>
+                    <div class="mtxt">A succulent beef steak grilled
+                        to perfection, served with
+                        your choice of sides.</div>
+                    <div class="com-rate">$ 12.99</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="beverages">
+        <div class="container pt-5">
+            <div class="text-center">
+                <!-- <h5 class="section-title ff-secondary text-start text-primary fw-normal" data-aos="fade-right" data-aos-duration="1000">Nourishing Insights</h5> -->
+                <h1 class="mb-4" data-aos="fade-up" data-aos-duration="1000">Sides, Beverages & Desserts</h1>
+            </div>
+    
+            <div class="row align-items-start g-5 mt-3">
+                <ng-container *ngFor="let item of this.beverages;let i = index;">
+                    <div class="col-lg-6 col-sm-12" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="bev-item d-flex gap-5 facenter ">
+                            <div class="w-100">
+                                <h5 class="bev">{{item.title}}</h5>
+                                <div class="bev-rate">$ {{item.rate}}</div>
+                            </div>
+                            <div>
+                                <img [src]="item.img" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

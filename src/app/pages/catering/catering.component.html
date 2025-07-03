@@ -1,0 +1,204 @@
+<app-breadcrum [value]="[1,1]"></app-breadcrum>
+
+<div class="container section">
+    <div class="row g-5 align-items-center">
+        <div class="col-lg-5" data-aos="fade-right" data-aos-duration="1000">
+            <img src="assets/image/cater.png" alt="" class="img-fluid">
+        </div>
+        <div class="col-lg-7">
+            <h5 class="section-title ff-secondary text-start text-primary fw-normal" data-aos="fade-right" data-aos-duration="1000">Making Every Event Extraordinary</h5>
+            <!-- <h1 class="mb-4">Welcome to <span><img src="assets/image/logo.jpg" alt="" class="logo"></span></h1> -->
+            <h1 class="mb-4" data-aos="fade-up" data-aos-duration="1000">Elevate Your Occasions with The Crispy Chicken</h1>
+            <p class="mb-4" data-aos="fade-up" data-aos-duration="1000">Are you planning a memorable event that deserves a touch of culinary excellence? Look no further than The Crispy Chicken's Catering and Party Services. From intimate gatherings to grand celebrations, our expert team is here to bring the finger-lickin' goodness of The Crispy Chicken to your special occasions.</p>
+        </div>
+    </div>
+</div>
+
+<div class="pattern1">
+    <div class="container section">
+        <div class="text-center">
+            <h5 class="section-title ff-secondary text-center text-primary fw-normal" data-aos="fade-right" data-aos-duration="1000">Crispy Chicken: Your Flavorful Choice!</h5>
+            <h1 class="mb-4" data-aos="fade-up" data-aos-duration="1000">Why Choose The Crispy Chicken Catering?</h1>
+        </div>
+    
+        <div class="row g-4 mt-3">
+            <ng-container *ngFor="let item of this.content">
+                <div class="col-lg-3 col-sm-6"  data-aos="fade-up" data-aos-duration="1000">
+                    <div class="of-none">
+                        <div class="hover_item rounded" [style.background-image]="'url(' + item.img + ')'">
+                            <!-- <img [src]="item.img" alt=""> -->
+                            <div class="con">
+                                <h5 >{{item.title}}</h5>
+                                <p>{{item.content}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<div class="pattern2">
+    <div class="container section">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-4" data-aos="fade-right" data-aos-duration="1000">
+                <img src="assets/image/red2.png" alt="" class="img-fluid">
+            </div>
+            <div class="col-lg-8">
+                <h5 class="section-title ff-secondary text-start text-primary fw-normal" data-aos="fade-right" data-aos-duration="1000">Catering to Your Special Moments!   </h5>
+                <!-- <h1 class="mb-4">Welcome to <span><img src="assets/image/logo.jpg" alt="" class="logo"></span></h1> -->
+                <h1 class="mb-4" data-aos="fade-up" data-aos-duration="1000">Events We Cater To</h1>
+                <p class="mb-4" data-aos="fade-up" data-aos-duration="1000"><b>Corporate Gatherings: </b>Impress clients and colleagues with our delectable offerings, adding a touch of gourmet to your corporate events, seminars, and meetings.</p>
+                <p class="mb-4" data-aos="fade-up" data-aos-duration="1000"><b>Private Parties: </b>Celebrate life's milestones, whether it's a birthday, anniversary, or family reunion, with an array of mouthwatering dishes.</p>
+                <p class="mb-4" data-aos="fade-up" data-aos-duration="1000"><b>Weddings and Receptions: </b> Make your special day even more memorable with a menu that reflects your style and indulges your guests.</p>
+                <p class="mb-4" data-aos="fade-up" data-aos-duration="1000"><b>Community Events: </b>From fundraisers to festivals, our catering services add a dash of flavor to community gatherings.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="bg-section"> -->
+    <!-- <div class="text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+            <path class="elementor-shape-fill" d="M500,98.9L0,6.1V0h1000v6.1L500,98.9z"></path>
+        </svg>
+    </div> -->
+    <!-- <div class="container section">
+
+        
+    
+        <div class="row g-5 mt-3">
+                
+            <div  class="col-lg-6 col-sm-12">
+                <div class="row g-5 ">
+                    <div class="col-lg-6 col-sm-12"  data-aos="fade-up" data-aos-duration="1000">
+                        <div class="icon-item rounded">
+                            <div class="icon">
+                                <i class="fa-solid fa-people-group "></i>
+                            </div>
+                            <div>
+                                <h3 class="mb-2 bold text-white" >Consultation</h3>
+                                <p>Reach out to us with your event details and preferences. Our catering experts will work with you to create a customized menu.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12"  data-aos="fade-up" data-aos-duration="1000">
+                        <div class="icon-item rounded">
+                            <div class="icon">
+                                <i class="fa-solid fa-people-group "></i>
+                            </div>
+                            <div>
+                                <h3 class="mb-2 bold text-white" >Menu Customization</h3>
+                                <p>Choose from our diverse menu options or collaborate with us to design a menu that suits your event perfectly. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <h1 class="mb-4 text-white" data-aos="fade-up" data-aos-duration="1000">How It Works</h1>
+            </div>
+            <div  class="col-lg-6 col-sm-12">
+                <div class="row g-5 ">
+                    <div class="col-lg-6 col-sm-12"  data-aos="fade-up" data-aos-duration="1000">
+                        <div class="icon-item rounded">
+                            <div class="icon">
+                                <i class="fa-solid fa-people-group "></i>
+                            </div>
+                            <div>
+                                <h3 class="mb-2 bold text-white" >Logistics Planning</h3>
+                                <p>Our team coordinates the logistics, from food preparation to delivery, ensuring everything runs seamlessly on the big day. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12"  data-aos="fade-up" data-aos-duration="1000">
+                        <div class="icon-item rounded">
+                            <div class="icon">
+                                <i class="fa-solid fa-people-group "></i>
+                            </div>
+                            <div>
+                                <h3 class="mb-2 bold text-white" >Event Day</h3>
+                                <p>Sit back and relax as we handle the setup, serving, and cleanup, allowing you to enjoy the event stress-free.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="bg-section">
+    <!-- <div class="text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+            <path class="elementor-shape-fill" d="M500,98.9L0,6.1V0h1000v6.1L500,98.9z"></path>
+        </svg>
+    </div> -->
+    <div class="container section">
+        <div class="row g-5 align-items-center mt-3">
+                
+            <div  class="col-lg-4 col-sm-12">
+                <div class="icon-item rounded">
+                    <div class="icon">
+                        <i class="fa-solid fa-people-group "></i>
+                    </div>
+                    <div>
+                        <h3 class="mb-2 bold text-white" >Consultation</h3>
+                        <p>Reach out to us with your event details and preferences. Our catering experts will work with you to create a customized menu.</p>
+                    </div>
+                </div>
+                <div class="icon-item rounded mt-5">
+                    <div class="icon">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </div>
+                    <div>
+                        <h3 class="mb-2 bold text-white" >Menu Customization</h3>
+                        <p>Choose from our diverse menu options or collaborate with us to design a menu that suits your event perfectly. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 bord">
+                <h1 class="mb-4 text-white" data-aos="fade-up" data-aos-duration="1000">How It Works</h1>
+            </div>
+            <div  class="col-lg-4 col-sm-12">
+                <div class="icon-item rounded">
+                    <div class="icon">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <div>
+                        <h3 class="mb-2 bold text-white" >Logistics Planning</h3>
+                        <p>Our team coordinates the logistics, from food preparation to delivery, ensuring everything runs seamlessly on the big day. </p>
+                    </div>
+                </div>
+                <div class="icon-item rounded mt-5">
+                    <div class="icon">
+                        <i class="fa-solid fa-cake-candles"></i>
+                    </div>
+                    <div>
+                        <h3 class="mb-2 bold text-white" >Event Day</h3>
+                        <p>Sit back and relax as we handle the setup, serving, and cleanup, allowing you to enjoy the event stress-free.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container section">
+    <div class="redbox">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-3" data-aos="fade-right" data-aos-duration="1000">
+                <img src="assets/image/about-img1.png" alt="" class="img-fluid d-none d-sm-none d-md-block">
+            </div>
+            <div class="col-lg-9">
+                <!-- <h5 class="section-title ff-secondary text-start text-white fw-normal" data-aos="fade-right" data-aos-duration="1000">Catering to Your Special Moments!   </h5> -->
+                <!-- <h1 class="mb-4">Welcome to <span><img src="assets/image/logo.jpg" alt="" class="logo"></span></h1> -->
+                <h1 class="mb-4" data-aos="fade-up" data-aos-duration="1000">Book Your Memorable Event Today!</h1>
+                <p class="mb-4" data-aos="fade-up" data-aos-duration="1000">Transform your event into an unforgettable experience with The Crispy Chicken's Catering and Party Services. Let us take care of the culinary delights while you focus on creating cherished memories with your loved ones. </p>
+                <p class="mb-4" data-aos="fade-up" data-aos-duration="1000">For inquiries and bookings, contact our catering team at catering@thecrispychicken.com or call [Your Contact Number]. We can't wait to make your celebration extra special! </p>
+            </div>
+        </div>
+    </div>
+</div>

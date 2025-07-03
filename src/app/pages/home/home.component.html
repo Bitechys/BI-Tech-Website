@@ -1,0 +1,293 @@
+
+<div class="slider-container" id="home">
+  <div
+    class="slide"
+    *ngFor="let slide of slides; let i = index"
+    [class.active]="i === currentIndex"
+  >
+    <div class="black-overlay"></div>
+   <div class="bg-blur" [style.backgroundImage]="'url(' + slide.bg + ')'"></div>
+    <div class="container content" *ngIf="i === currentIndex">
+      <div>
+        <h1 #titleRef class="text-white slide_title">{{ slide.title }}</h1>
+        <p #textRef class="slide_sub_title">{{ slide.text }}</p>
+        <a href="" class="pt-5 mt-4 btn btn-primary test py-sm-3 px-sm-5 me-3 but mx-auto " routerLink="/about"><b>
+                        Let's Build Together...
+                    </b></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- <button (click)="nextSlide()">Next</button> -->
+</div>
+
+<!-- Margin box Start -->
+<div class="container-xxl section bg-primary ">
+    <div class="shadow container bg-white marg-box">
+        <div class="row p-5">
+            <p class="bold">WHAT WE DO</p>
+            <h2 class="">Bi-Tech Solutions powers digital transformation for modern businesses.</h2>
+            <p>We design and build high-performance web apps, Android solutions, custom APIs, and intelligent data tools that streamline workflows, improve customer experience, and drive scalable growth.</p>
+        </div>
+    </div>
+</div>
+<!-- Margin box End -->
+
+<!-- About Start -->
+<div class="container-xxl section bg-primary text-white bg-lines" id="about">
+    <div class="container">
+        <div class="row p-5">
+            <div class="col-12 col-sm-12 col-md-12">
+                <h2 class="text-white mb-4 text-center">Our Mission & Vision</h2>
+                <p>At Bi Tech Solutions, we believe that technology should empower businesses — not complicate them. We are a team of passionate developers, testers, and problem-solvers who specialize in building high-performance, scalable, and secure software solutions. With a deep understanding of both technology and business, we bridge the gap between your vision and real-world implementation.</p>
+                <p>Our goal is to help companies grow, innovate, and stay ahead in a fast-changing digital landscape. We don’t just write code — we craft smart, tailored systems that simplify processes, engage users, and deliver lasting value.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+<!-- Why Choose Start -->
+<div class="container-xxl section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12">
+                <h2 class="mb-4 text-center">Why Choose BI-Tech as Your Software Partner?</h2>
+                <p>We’re more than just a development company — we’re your digital transformation partner. With a strong focus on innovation, quality, and collaboration, we deliver tailor-made solutions that align with your business goals and scale with your growth.</p>
+                <p>Whether you're a startup or an established enterprise, our team is equipped to build, launch, and support the technology that moves your business forward.</p>
+            </div>
+        </div>
+        <div class="choose_container">
+            <div class="choose_card" *ngFor="let item of choose_grid">
+                <div class="choose_icon mb-3">
+                    <i class="fa-solid {{ item.icon }} fa-xl"></i>
+                </div>
+                <h4>{{ item.title }}</h4>
+                <p>{{ item.content }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Why Choose End -->
+
+
+<!-- Services Start -->
+<div class="section" id="service">
+    <div class="container-xxl">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12">
+                    <h2 class="mb-4 text-center">Our Services</h2>
+                    <p>At Bi Tech Solutions, we don’t just build software — we solve problems. Our full-stack services are designed to support your business goals, streamline operations, and enhance user experiences across platforms.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="service_container">
+            <div class="service_card" *ngFor="let item of service_grid">
+                <div>
+                    <h3 class="text-white">{{ item.title }}</h3>
+                    <p>{{ item.con }}</p>
+                </div>
+                <div>
+                    <img [src]="item.img" alt="" class="service_img">
+                </div>
+            </div>
+        </div>
+</div>
+<!-- Services End -->
+
+<!-- Client Start -->
+<div class="container-xxl section" id="client">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12">
+                <h2 class="mb-4 text-center">Meet Our Clients</h2>
+                <p class="text-center">Forward-thinking businesses and growing startups trust Bi Tech Solutions to bring their ideas to life with reliable, scalable software.</p>
+            </div>
+        </div>
+        <div class="client_container px-5">
+            <div class="client_card" *ngFor="let item of client_grid">
+                <div class="client_img d-flex justify-content-center align-items-center">
+                    <img [src]="item.client" alt="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        <!-- <div class="d-flex justify-content-center">
+            <a href="" class="pt-5 mt-5 btn btn-primary test py-sm-3 px-sm-5 me-3 but" routerLink="/about"><b>
+            Become Our Client >
+            </b></a>
+        </div> -->
+    </div>
+</div>
+<!-- Client End -->
+
+<!-- Dummy Start -->
+<div class="container-xxl p-5 bg-primary text-white bg-lines">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
+                <h1 class="text-white text-center">Want to Digitalize your Business</h1>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4">
+                <a href="" class="btn btn-white test py-sm-3 px-sm-5 but mx-auto " routerLink="/about"><b>
+                        Connect with us...
+                    </b></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Dummy End -->
+
+<!-- work Start -->
+<div class="container-xxl section" id="work">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12">
+                <h2 class="mb-4 text-center">Our Work</h2>
+                <p>Explore our diverse portfolio of stunning websites, ranging from captivating e-commerce platforms to elegant corporate sites. Our designs prioritize user experience and tailor-made solutions, ensuring your online presence makes a lasting impact. Discover how we can bring your vision to life.</p>
+            </div>
+        </div>
+        <div class="work_container">
+            <div class="work_card rel" 
+             *ngFor="let item of work_grid" [ngStyle]="{ 'background-image': 'url(' + item.img + ')' }">
+                <div class="work_overlay" [ngStyle]="{ 'background-color': item.color }"></div>
+                <div class="work_icon">
+                    <img [src]="item.icon" alt="" class="work_icon_in">
+                </div>
+                <div class="text-center mt-5 pt-5 work_con">
+                    <h5 class="text-white">{{ item.title }}</h5>
+                    <p class="text-white">{{ item.con }}</p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- work End -->
+
+<!-- faq Start -->
+<div class="container-xxl section rel bg-bitmap" id="faq">
+    <div class="bg-bitmap_overlay"></div>
+     <!-- <img src="assets/images/logo/logo_white.png" alt="Logo" class="bg-bitech"> -->
+    <div class="container" style="position: relative; z-index: 10;">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12">
+                <h2 class="mb-4 text-center">FAQ</h2>
+            </div>
+        </div>
+       <app-faq></app-faq>
+    </div>
+</div>
+<!-- faq End -->
+
+<!-- form End -->
+  <section class="form-bg bg-dark section" id="contact">
+    <!-- <div class="spinner in-view-r">
+      <div class="spinner-inn">
+        <img src="assets/img/gradient-bg.png" alt="">
+      </div>
+    </div> -->
+    <div class="screen">
+      <div class="screen__content">
+        <div class="screen__background">
+          <span class="screen__background__shape screen__background__shape4"></span>
+          <span class="screen__background__shape screen__background__shape3"></span>		
+          <span class="screen__background__shape screen__background__shape2"></span>
+          <span class="screen__background__shape screen__background__shape1"></span>
+        </div>
+      </div>
+    </div>
+    <div class="container-xxl px-5 form-con" data-aos="fade-up" data-aos-duration="1000">
+      <div class="container">
+        <div class="row g-0 mt-2">
+          <!-- <div class="col-md-6">
+          <div class="video">
+              <button type="button" class="btn-play" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
+                  <span></span>
+              </button>
+          </div>
+      </div> -->
+          <div class="col-lg-7 col-md-12 text-white text-center text-lg-start">
+              <div class="mt-5 pt-5 pb-5">
+                <h4 class="text-white">Join our Hands to</h4>
+                <h1 class="digitext">Digitizing Your Business Growth</h1>
+              </div>
+              <div class="divide-con pb-5 d-flex gap-2 justify-content-between">
+                <div class="divide-txt text-white">
+                  Expert <b>Team Members</b>
+                </div>
+                <div class="divider_new"></div>
+                <div class="divide-txt text-white">
+                  Results-Driven <b>Approach</b>
+                </div>
+                <div class="divider_new"></div>
+                <div class="divide-txt text-white">
+                  Streamlined <b>Execution</b>
+                </div>
+              </div>
+          </div>
+          <div class="col-lg-5 col-md-12 d-flex align-items-start">
+              <div class="formfill bg-white">
+                  <form action="https://api.web3forms.com/submit" method="POST" class="contact_field">
+                    <input type="hidden" name="access_key" value="ede9d382-f61c-4b8b-a8fe-eca701759576">
+                    <input type="hidden" name="subject" value="New Quote request from your Site">
+                    <input type="hidden" name="from_name" value="Bi-Tech - Request a Quote">
+                    <h5 class="text-start primary">Connect with us</h5>
+                  <h1 class="primary mb-4">Let's Grow Together
+                  </h1>
+                  <div class="row g-3">
+                      <div class="col-md-12">
+                          <div class="form-custom">
+                               
+                              <i class="bi bi-person h3 formico"></i>
+                              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                              <!-- <label for="name"><i class="bi bi-person h3 formico"></i>  Your Name</label> -->
+                          </div>
+                      </div>
+                      <div class="col-md-12">
+                          <div class="form-custom">
+                              <i class="bi bi-envelope h4 formico"></i>
+                              <input type="email" name="email" class="form-control" id="email" placeholder="Your Email" required>
+                              <!-- <label for="email"><i class="bi bi-envelope h4 formico"></i>  Your Email</label> -->
+                          </div>
+                      </div>
+                      <div class="col-md-12">
+                          <div class="form-custom">
+                              <i class="bi bi-telephone h4 formico"></i>
+                              <input type="number" name="number" class="form-control" id="number" placeholder="Phone Number" required>
+                              <!-- <label for="number"><i class="bi bi-telephone h4 formico"></i>  Phone Number</label> -->
+                          </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-custom">
+                          <i class="bi bi-code-slash h4 formico"></i>
+                          <select id="standard-select" class="form-control">
+                            <option value="">--Select--</option>
+                            <option value="Web design and Development">Web design and Development</option>
+                            <option value="Android App / iOS App">Android App / iOS App</option>
+                            <option value="Digital Marketing">Digital Marketing</option>
+                            <option value="POS solutions">POS solutions</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                          <div class="form-custom">
+                              <i class="bi bi-chat h4 formico"></i>
+                              <textarea class="form-control" name="message" placeholder="Message" id="message" style="height: 100px"></textarea>
+                              <!-- <label for="message"><i class="bi bi-chat h4 formico"></i>  Message</label> -->
+                          </div>
+                      </div>
+                      <div class="col-12">
+                          <button type="submit" class="btn btn-primary submit-btn w-100 py-3"><b>SUBMIT</b></button>
+                      </div>
+                  </div>
+              </form>
+              
+              </div>
+          </div>
+      </div>
+      </div>
+  </div>
+</section>
+<!-- form End -->

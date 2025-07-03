@@ -1,0 +1,222 @@
+@import "../../../varcolor.scss";
+
+// .sif_header{
+//   background-image: url('../../../assets/img/home.jpg');
+//   background-position: right;
+//   background-repeat: no-repeat;
+//   background-size: contain;
+//   background-attachment: fixed;
+//   // min-height: 100vh;
+//   position: relative;
+
+//   .dummy-bg{
+//       background-color: #212121;
+//       width: 60%;
+//       height: 100%;
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//   }
+//   .dummy-zig{
+//     position: absolute;
+//     bottom: -10%;
+//     right: 30%;
+
+//       .ques{
+//         font-size: 40rem;
+//         color: #fff;
+//       }
+//   }
+//   .center-item{
+//       height: calc(100vh - 80px);
+//       align-items: center;
+//       z-index: 10;
+//       position: relative;
+//   }
+
+//   @include md{
+//       background-attachment: scroll;
+//       .center-item{
+//           height: calc(100vh - 60px);
+//           align-items: start;
+//       }
+//       .dummy-bg{
+//           display: none;
+//       }
+//       .dummy-zig{
+//           zoom: 0.5;
+//           // display: none;
+//       }
+//   }
+// }
+
+.sif_header {
+  .sif_bg {
+    background-image: url("../../../assets/img/home.jpg");
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+  }
+  .dummy-zig {
+    position: absolute;
+    top: 20%;
+    right: 25%;
+    z-index: 10;
+
+    .ques {
+      font-size: 40rem;
+      color: #fff;
+      line-height: 1.2;
+    }
+  }
+
+  @include lg {
+    .sif_bg {
+      background-attachment: scroll;
+      min-height: 100px;
+      background-size: cover;
+      position: relative;
+    }
+    .dummy-zig {
+      position: absolute;
+      top: 32%;
+      right: 25%;
+      z-index: 10;
+      zoom: 0.5;
+      // display: none;
+      .ques {
+        font-size: 10rem;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.bCon {
+  width: 65%;
+  padding: 20px 0px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.abs {
+  position: absolute;
+}
+
+/*--------------------------------------------------------------
+# Frequently Asked Questions
+--------------------------------------------------------------*/
+.faq {
+  // background: linear-gradient(42deg, #5846f9 0%, #7b27d8 100%);
+  // background: var(--primary);
+  // padding: 50px 0px;
+  // background-image: url("../../../assets/image/signature_sandwich.png");
+  // background-position: left -600px top 50%;
+  // background-repeat: no-repeat;
+  position: relative;
+}
+
+.bur {
+  position: absolute;
+  top: 300px;
+  left: -350px;
+  width: 600px;
+}
+
+.faq .section-title h2,
+.faq .section-title p {
+  color: #fff;
+}
+
+.faq .section-title h2::after {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.faq .faq-list {
+  padding: 0 70px;
+}
+
+.faq .faq-list ul {
+  padding: 0;
+  list-style: none;
+}
+
+.faq .faq-list li + li {
+  margin-top: 15px;
+}
+
+.faq .faq-list li {
+  padding: 15px;
+  background: #fff;
+  border-radius: 5px;
+  position: relative;
+  // border: 2px solid $primary;
+  // box-shadow: 2px 2px $dark;
+}
+
+.faq .faq-list a {
+  display: block;
+  position: relative;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  padding: 0 30px;
+  outline: none;
+  cursor: pointer;
+}
+
+.faq .faq-list .icon-help {
+  font-size: 24px;
+  // position: absolute;
+  right: 0;
+  left: 20px;
+  /* color: #8577fb; */
+  color: var(--primary-light);
+}
+
+.faq .faq-list .icon-show,
+.faq .faq-list .icon-close {
+  font-size: 24px;
+  // position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.faq .faq-list p {
+  margin-bottom: 0;
+  padding: 10px 0 0 0;
+}
+
+.faq .faq-list .icon-show {
+  display: none;
+}
+
+.faq .faq-list a.collapsed {
+  color: $dark;
+}
+
+.faq .faq-list a.collapsed:hover {
+  /* color: #5846f9; */
+  color: var(--primary);
+}
+
+.faq .faq-list a.collapsed .icon-show {
+  display: inline-block;
+}
+
+.faq .faq-list a.collapsed .icon-close {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .faq .faq-list {
+    padding: 0;
+  }
+}

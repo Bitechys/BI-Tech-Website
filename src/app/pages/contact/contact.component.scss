@@ -1,0 +1,188 @@
+@import "../../../varcolor.scss";
+  .right_conatct_social_icon{
+       background: $primary;
+  }
+  .contact_us{
+    //   background-color: #f1f1f1;
+    //   padding: 50px 0px;
+      font-size: 18px;
+  }
+  
+  .contact_inner{
+      background-color: #fff;
+      position: relative;
+      box-shadow: 20px 22px 44px #cccc;
+      border-radius: 25px;
+  }
+  .contact_field{
+    //   padding: 60px 340px 90px 100px;
+    padding: 60px;
+    // width: 70%;
+
+    @include md{
+        width: 100%;
+    }
+  }
+  .right_conatct_social_icon{
+      height: 100%;
+  }
+  
+  .contact_field h3{
+     color: #000;
+      font-size: 40px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      margin-bottom: 10px
+  }
+  .contact_field p{
+      color: #000;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      margin-bottom: 35px;
+  }
+  .contact_field .form-control{
+      border-radius: 0px;
+      border: none;
+      border-bottom: 1px solid #ccc;
+  }
+  .contact_field .form-control:focus{
+      box-shadow: none;
+      outline: none;
+      border-bottom: 2px solid $primary;
+  }
+  .contact_field .form-control::placeholder{
+      font-size: 16px;
+      letter-spacing: 1px;
+  }
+  
+  .contact_info_sec {
+      position: absolute;
+      background-color: #2d2d2d;
+      color: #fff;
+      right: 1px;
+      top: 10%;
+    //   height: 340px;
+    //   width: 340px;
+      padding: 40px;
+      border-radius: 25px 0 0 25px;
+
+      @include lg{
+        display: none;
+      }
+  }
+  .contact_info_sec h4{
+      letter-spacing: 1px;
+      padding-bottom: 15px;
+      color: #fff;
+  }
+  
+  .info_single{
+      margin: 30px 0px;
+  }
+  .info_single i{
+      margin-right: 15px;
+  }
+  .info_single span{
+    //   font-size: 14px;
+      letter-spacing: 1px;
+  }
+  
+  button.contact_form_submit {
+      background: $primary;
+      border: none;
+      color: #fff;
+      padding: 10px 15px;
+      width: 100%;
+      margin-top: 25px;
+    //   border-radius: 35px;
+      cursor: pointer;
+      font-size: 14px;
+      letter-spacing: 2px;
+  }
+  .socil_item_inner li{
+      list-style: none;
+  }
+  .socil_item_inner li a{
+      color: #fff;
+      margin: 0px 15px;
+    //   font-size: 14px;
+  }
+  .socil_item_inner{
+      padding-bottom: 10px;
+  }
+  
+  .map_sec{
+      padding: 50px 0px;
+  }
+  .map_inner h4, .map_inner p{
+      color: #000;
+      text-align: center
+  }
+  .map_inner p{
+      font-size: 13px;
+  }
+  .map_bind{
+     margin-top: 50px;
+      border-radius: 30px;
+      overflow: hidden;
+  }
+
+//   btn
+
+.btn.btn-social {
+    margin-right: 5px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+    border: 1px solid #FFFFFF;
+    border-radius: 35px;
+    transition: .3s;
+  }
+  
+  .btn.btn-social:hover {
+    color: var(--primary);
+  }
+
+  .validateMsg{
+    color: $primary;
+    margin-top: 10px;
+    font-size: 80%;
+  }
+
+  .formSuccess{
+    margin-top: 10px;
+    background-color: green;
+    color: white;
+    padding: 20px;
+    font-size: 22px;
+    text-align: center;
+  }
+  
+  .formFail{
+    margin-top: 10px;
+    background-color: green;
+    color: white;
+    padding: 20px;
+    font-size: 22px;
+    text-align: center;
+  }
+
+
+  ////SIF
+  
+  .contact-bg{
+    background-image: url('../../../assets/img/about1.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-height: 100vh;
+
+    .contactbox{
+      background-color: $primary_two;
+      padding: 50px 80px;
+    }
+  }

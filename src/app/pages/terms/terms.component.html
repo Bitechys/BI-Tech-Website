@@ -1,0 +1,31 @@
+<!-- <app-breadcrum [value]="[5,1]"></app-breadcrum> -->
+
+<div class="dummy_header"></div>
+<div class="sif_header">
+    <div class="dummy-zig"><img src="assets/img/zig1.png" alt=""></div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-7 col-lg-7 col-xl-7 bg-dark" >
+            <div class="bCon">
+                <div class="zig-head"><img src="assets/img/zig3.png" alt=""></div>
+                <h1 class="text-white">Terms & Conditions</h1>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-5 col-lg-5 col-xl-5 sif_bg">
+      
+        </div>
+    </div>
+</div>
+
+<section class="terms section">
+    <div class="container">
+        <div class="text-center">
+            <!-- <h5 class="section-title ff-secondary text-center text-primary fw-normal" data-aos="fade-right" data-aos-duration="1000">Understanding Our </h5> -->
+            <!-- <h1 class="mb-4" data-aos="fade-up" data-aos-duration="1000">Terms & Conditions</h1> -->
+          </div>
+          <p>Welcome to SIF (Syed International Foods). By using our website and purchasing our products, you agree to comply with and be bound by the following terms and conditions:</p>
+        <ng-container *ngFor="let item of terms; let j = index;">
+            <h6 data-aos="fade-up" data-aos-duration="1000">{{j+1}}. {{item.topic}}</h6>
+            <p class="mb-4" data-aos="fade-up" data-aos-duration="1000">{{item.desc}}</p>
+        </ng-container>
+    </div>
+</section>

@@ -1,0 +1,669 @@
+<app-breadcrum [value]="[1,0]"></app-breadcrum>
+
+<div class="franchise">
+    <div class="container-xxl  py-5">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-5">
+                    <img src="assets/image/franchise-in.jpg" alt="" class="img-fluid">
+                </div>
+                <div class="col-lg-7">
+                    <h5 class="section-title ff-secondary text-start text-primary fw-normal" data-aos="fade-right"
+                        data-aos-duration="1000">Join Our Finger-Lickin' Family</h5>
+                    <!-- <h1 class="mb-4">Welcome to <span><img src="assets/image/logo.jpg" alt="" class="logo"></span></h1> -->
+                    <h1 class="mb-4" data-aos="fade-up" data-aos-duration="1000">Franchise Opportunities with The Crispy
+                        Chicken</h1>
+                    <p class="mb-4" data-aos="fade-up" data-aos-duration="1000">At The Crispy Chicken, we take immense
+                        pride in our mouthwatering fried chicken and delectable beef steak. Our commitment to using
+                        fresh ingredients, unique spices, and maintaining the highest standards of hygiene sets us apart
+                        from the rest. As we expand our reach, we invite enthusiastic entrepreneurs to be part of our
+                        finger-lickin' family through our franchising opportunities.</p>
+
+                    <h1 class="mt-2 mb-4" data-aos="fade-up" data-aos-duration="1000">Why Choose The Crispy Chicken
+                        Franchise?</h1>
+                    <p class="mb-4" data-aos="fade-up" data-aos-duration="1000">The Crispy Chicken franchise offers a
+                        compelling choice for aspiring entrepreneurs due to its proven track record of success,
+                        innovative menu, and comprehensive support system. With a focus on high-quality ingredients and
+                        unique flavor profiles, The Crispy Chicken stands out in the competitive fast-food market.
+                        Franchisees benefit from a well-established brand, efficient operational processes, and thorough
+                        training programs. The franchise's ongoing marketing initiatives and continuous research into
+                        consumer preferences ensure a competitive edge. For those seeking a rewarding business
+                        opportunity with a popular and evolving brand, The Crispy Chicken franchise presents a
+                        compelling and lucrative option.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Service Start -->
+    <div class="container-xxl section pattern1">
+        <div class="container">
+            <div class="text-center">
+                <h5 class="section-title ff-secondary text-center text-primary fw-normal" data-aos="fade-right"
+                    data-aos-duration="1000">Benefit With Us</h5>
+                <h1 class="mb-5" data-aos="fade-up" data-aos-duration="1000">Franchise With Us</h1>
+            </div>
+            <p data-aos="fade-up" data-aos-duration="1000">Are you ready to embark on an exciting culinary journey with
+                The Crispy Chicken? We are thrilled to offer franchise opportunities to like-minded individuals who
+                share our passion for great food and exceptional customer service.</p>
+            <div class="row g-4 mt-3">
+                <ng-container *ngFor="let item of this.card">
+                    <div class="col-lg-3 col-sm-6" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="service-item rounded pt-3">
+                            <div class="p-4 text-center">
+                                <div class="text-center"><i class="{{item.img}} text-primary mb-4"></i></div>
+                                <h5>{{item.title}}</h5>
+                                <p>{{item.content}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <!-- <div class="col-lg-3 col-sm-6">
+                <div class="service-item rounded pt-3">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
+                        <h5>Signature Spices</h5>
+                        <p>Our secret spices mixture, carefully crafted and closely guarded, elevates our fried chicken and beef steak to a level that is simply irresistible.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="service-item rounded pt-3">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-utensils text-primary mb-4"></i>
+                        <h5>Freshness at Its Best</h5>
+                        <p>We never compromise on freshness. Every item on our menu is prepared to order, ensuring that our customers experience the fullness of flavor in every bite.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="service-item rounded pt-3">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-cart-plus text-primary mb-4"></i>
+                        <h5>Hygiene First</h5>
+                        <p>We adhere to the highest standards of cleanliness and hygiene in our preparation process, guaranteeing that our food is not only delicious but also safe for consumption.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="service-item rounded pt-3">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-headset text-primary mb-4"></i>
+                        <h5>Health-conscious Choices</h5>
+                        <p>Our dedication to providing healthier options sets us apart from conventional fast-food chains. We are committed to catering to the needs of health-conscious consumers without compromising on taste.</p>
+                    </div>
+                </div>
+            </div> -->
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+
+    <!-- Menu Start -->
+    <!-- <div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center">
+            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Food Menu</h5>
+            <h1 class="mb-5">Most Popular Items</h1>
+        </div>
+        <div class="tab-class text-center">
+            <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+                <li class="nav-item">
+                    <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
+                        <i class="fa fa-coffee fa-2x text-primary"></i>
+                        <div class="ps-3">
+                            <small class="text-body">Popular</small>
+                            <h6 class="mt-n1 mb-0">Breakfast</h6>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-2">
+                        <i class="fa fa-hamburger fa-2x text-primary"></i>
+                        <div class="ps-3">
+                            <small class="text-body">Special</small>
+                            <h6 class="mt-n1 mb-0">Launch</h6>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
+                        <i class="fa fa-utensils fa-2x text-primary"></i>
+                        <div class="ps-3">
+                            <small class="text-body">Lovely</small>
+                            <h6 class="mt-n1 mb-0">Dinner</h6>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane fade show p-0 active">
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-1.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-2.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-3.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-4.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-5.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-6.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-7.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-8.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-2" class="tab-pane fade show p-0">
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-1.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-2.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-3.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-4.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-5.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-6.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-7.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-8.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-3" class="tab-pane fade show p-0">
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-1.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-2.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-3.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-4.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-5.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-6.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-7.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid rounded" src="img/menu-8.jpg" alt="" style="width: 80px;">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span>Chicken Burger</span>
+                                        <span class="text-primary">$115</span>
+                                    </h5>
+                                    <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+    <!-- Menu End -->
+
+    <!-- Join -->
+    <div class="bgItem section">
+        <div class="container mb-5 mx-5">
+            <div class="text-center">
+                <!-- <h5 class="section-title ff-secondary text-center text-secondary fw-normal" data-aos="fade-right" data-aos-duration="1000">Benefit With Us</h5> -->
+                <h1 class="text-secondary mb-4" data-aos="fade-up" data-aos-duration="1000">Join Our Family of
+                    Entrepreneurs</h1>
+            </div>
+            <p data-aos="fade-up" data-aos-duration="1000">If you share our passion for providing delicious food with
+                top-notch customer service, we want to hear from you! The Crispy Chicken offers a range of franchise
+                options to suit your goals and location preferences.</p>
+        </div>
+
+        <div class="container " data-aos="fade-up" data-aos-duration="1000">
+            <div class="divider"></div>
+        </div>
+
+        <div class="text-center my-5 mt-5 pb-3">
+            <!-- <h5 class="section-title ff-secondary text-center text-secondary fw-normal" data-aos="fade-right" data-aos-duration="1000">Benefit With Us</h5> -->
+            <h1 class="text-secondary mb-5" data-aos="fade-up" data-aos-duration="1000">Steps to Become a Franchisee:
+            </h1>
+        </div>
+        <div class="row g-4 facenter bg-primary">
+            <ng-container *ngFor="let item of this.cardnew">
+                <div class="col-lg-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="cardnew">
+                        <div class="p-4 text-center">
+                            <div class="icon"><i class="{{item.img}} text-primary mb-4"></i></div>
+                            <h5 class="text-secondary">{{item.title}}</h5>
+                            <p>{{item.content}}</p>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <!-- Join -->
+
+
+    <!-- Reservation Start -->
+    <div class="container-xxl bg-dark px-5 section">
+        <div class="row g-0">
+            <!-- <div class="col-md-6">
+            <div class="video">
+                <button type="button" class="btn-play" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
+                    <span></span>
+                </button>
+            </div>
+        </div> -->
+            <div class="col-lg-6 col-md-12 m-auto bg-dark">
+                <img src="assets/image/about-img1.png" alt="" class="img-fluid d-none  m-auto d-sm-none d-md-block"
+                    data-aos="fade-left" data-aos-duration="1000">
+            </div>
+            <div class="col-lg-6 col-md-12 m-auto bg-dark d-flex align-items-center">
+                <div class="formfill">
+                    <h5 class="section-title ff-secondary text-start text-primary fw-normal" data-aos="fade-right"
+                        data-aos-duration="1000">Be Part Of Us</h5>
+                    <h1 class="text-secondary mb-4" data-aos="fade-up" data-aos-duration="1000">Fill Up Your Details
+                    </h1>
+                    <!-- <form action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="092d700d-79a3-4188-8e07-ca90a84e710c">
+                    <div class="row g-3" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                <label for="name">Your Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Your Email">
+                                <label for="email">Your Email</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <input type="number" name="number" class="form-control" id="number" placeholder="Phone Number">
+                                <label for="number">Phone Number</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <input type="location" name="location" class="form-control" id="location" placeholder="Preferred Location">
+                                <label for="location">Preferred Location</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <textarea class="form-control" name="message" placeholder="Special Request" id="message" style="height: 100px"></textarea>
+                                <label for="message">Why Us? (The Crispy Chicken)</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100 py-3"><b>GET A FRANCHISE</b></button>
+                            <button>submit</button>
+                        </div>
+                    </div>
+                </form> -->
+                    <form [formGroup]="franchiseForm">
+                        <input type="hidden" name="access_key" value="092d700d-79a3-4188-8e07-ca90a84e710c">
+                        <div class="row g-3" data-aos="fade-up" data-aos-duration="1000">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <!-- <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                <label for="name">Your Name</label> -->
+                                    <input type="text" id="name" name="name" class="form-control" id="name" (keydown)="preventFirstLetterSpace($event)"
+                                        placeholder="Your Name" formControlName="name">
+                                    <label for="email">Your Name <span class="text-primary">*</span></label>
+                                    <div class="validateMsg"
+                                        *ngIf="franchiseForm.get('name').invalid && franchiseForm.get('name').touched">
+                                        <div *ngIf="franchiseForm.get('name').errors.required">Name is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="email" name="email" formControlName="email" class="form-control" (keydown)="preventFirstLetterSpace($event)"
+                                        id="email" placeholder="Your Email">
+                                    <label for="email">Your Email <span class="text-primary">*</span></label>
+                                    <div class="validateMsg"
+                                        *ngIf="franchiseForm.get('email').invalid && franchiseForm.get('email').touched">
+                                        <div *ngIf="franchiseForm.get('email').errors.required">Email is required.</div>
+                                        <div *ngIf="franchiseForm.get('email').errors.email">Invalid email format.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex">
+                                    <div class="selected-country-img pointer">
+                                        <img [src]="getSelectedCountryImage()" alt="{{ getSelectedCountryName() }}"
+                                            class="country-flag">
+                                    </div>
+                                    <select class="countryCode pointer" formControlName="code" name="code" placeholder="code" (change)="onSelectChange($event)">
+                                        <option *ngFor="let countryCode of this.service.new"
+                                            [value]="countryCode.dial_code" [selected]="countryCode.name == 'India'">
+                                            ({{countryCode.dial_code}}) {{countryCode.name}}
+                                        </option>
+                                    </select>
+                                    <div class="form-floating">
+                                        <input class="form-control excep" type="tel" formControlName="phone" (keydown)="preventFirstLetterSpace($event)"
+                                            placeholder="Phone Number" id="phone" onlyNumbers />
+                                        <label for="email">Your Phone Number <span class="text-primary">*</span></label>
+
+                                    </div>
+                                </div>
+                                <div class="validateMsg"
+                                    *ngIf="franchiseForm.get('phone').invalid && franchiseForm.get('phone').touched">
+                                    <div *ngIf="franchiseForm.get('phone').errors.required">Phone Number is required.
+                                    </div>
+                                    <div *ngIf="franchiseForm.get('phone').errors.phone">Invalid Number format.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input type="location" formControlName="location" name="location" class="form-control" id="location" (keydown)="preventFirstLetterSpace($event)"
+                                        placeholder="Preferred Location">
+                                    <label for="location">Preferred Location</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" formControlName="message" name="message" placeholder="Special Request" (keydown)="preventFirstLetterSpace($event)"
+                                        id="message" style="height: 100px"></textarea>
+                                    <label for="message">Why Us? (The Crispy Chicken)</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <!-- <button class="btn btn-primary w-100 py-3"><b>GET A FRANCHISE</b></button> -->
+                                
+                                <!-- submit button -->
+                                <button [disabled]="franchiseForm.invalid || onSubmit"
+                                    class="btn btn-primary w-100 py-3"
+                                    (click)="submitEmail()">
+                                    <ng-container *ngIf="onSubmit === false; else submittingEmail">
+                                        <b>GET A FRANCHISE</b>
+                                    </ng-container>
+                                    <ng-template #submittingEmail>
+                                        <div>Sending....</div>
+                                    </ng-template>
+                                </button>
+
+                                <!-- Alert -->
+                                <div *ngIf="showAlert">
+                                    <!-- <p [ngClass]="alertColor" class="font-semibold">
+                                        {{ alertMessage }}
+                                    </p> -->
+                                    <div *ngIf="formFeed">
+                                        <div class="formSuccess">{{ alertMessage }}</div>
+                                    </div>
+                                    <div *ngIf="!formFeed">
+                                        <div class="formFail">{{ alertMessage }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 16:9 aspect ratio -->
+                    <div class="ratio ratio-16x9">
+                        <iframe class="embed-responsive-item" src="" id="video" allowfullscreen
+                            allowscriptaccess="always" allow="autoplay"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Reservation Start -->
+    <div class="w-bor"></div>
+</div>

@@ -1,0 +1,81 @@
+@import "../../../varcolor.scss";
+
+.facts {
+  .title {
+    height: 70px;
+    color: #fff;
+    // background-color: #fff;
+    background-color: $primary;
+    padding: 10px;
+    text-align: center;
+    border: 2px dashed $primary;
+    border-left: none;
+    border-right: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Rowdies';
+  }
+  .wid {
+    height: 200px;
+  }
+
+  .card {
+    // border: 2px solid $primary;
+    border-radius: 10px;
+    // box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    .card-img-top {
+      text-align: center;
+      padding: 10px;
+    }
+    .card-body {
+      background-color: #f4f4f4;
+      padding: 0px;
+      border-radius: 10px;
+    }
+  }
+
+  .burg-section {
+    position: relative;
+    margin: auto;
+    display: flex;
+    justify-content: end;
+
+    @include md {
+      justify-content: center;
+    }
+
+    .txt-section {
+      width: 70%;
+      padding: 50px;
+        margin: 50px;
+      @include md {
+        margin: 10px;
+        width: 100%;
+        padding: 20px 10px;
+      }
+    }
+
+    p {
+      text-align: left !important;
+    }
+
+    .bur {
+      position: absolute;
+      top: 13%;
+      left: -350px;
+      width: 600px;
+      z-index: -1;
+
+      @include md {
+        display: none;
+      }
+    }
+
+    .fasize {
+      font-size: 70px;
+      color: $primary;
+    }
+  }
+}

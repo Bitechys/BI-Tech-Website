@@ -1,0 +1,23 @@
+<div class="breadcrum ">
+    <div class="container">
+        <div class="title">{{title}}</div>
+    <!-- <div>qwerty <i class="fa-solid fa-chevron-right fa-2xs"></i> qwerty <i class="fa-solid fa-chevron-right fa-2xs"></i> qwerty</div> -->
+    <div class="font-small " >
+        <ul>
+          <li>
+            <a class="cursor" routerLink="/">Home</a>
+            <i class="fa-solid fa-chevron-right fa-2xs"></i>
+          </li>
+          <li *ngFor="let item of data; let last = last;" >
+            <a class="cursor" routerLink="{{item.path}}">{{item.text}}</a>
+            <span *ngIf="!last">
+                <i class="fa-solid fa-chevron-right fa-2xs"></i>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <!-- <div class="poster-img">
+        <img src="assets/img/header-poster.jpg" alt=" ">
+      </div> -->
+    </div>
+</div>

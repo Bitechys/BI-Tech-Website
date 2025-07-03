@@ -1,0 +1,274 @@
+@import "../../../varcolor.scss";
+
+.franchise{
+    
+    /*** Service ***/
+.service-item {
+    // box-shadow: 0 0 45px rgba(0, 0, 0, .08);
+    box-shadow: 11px 15px 3px 0px rgba(0, 0, 0, 0.08);
+    border: 1px solid  rgba(0, 0, 0, 0.08);
+    transition: .5s;
+    height: 100%;
+    background-color: #fff;
+  }
+  
+  .service-item:hover {
+    background: var(--primary);
+  }
+  
+  .service-item * {
+    transition: .5s;
+  }
+  
+  .service-item:hover * {
+    color: var(--light) !important;
+  }
+  
+  
+  /*** Food Menu ***/
+  .nav-pills .nav-item .active {
+    border-bottom: 2px solid var(--primary);
+  }
+  
+  
+  /*** Youtube Video ***/
+  .video {
+    position: relative;
+    height: 100%;
+    min-height: 500px;
+    // background: linear-gradient(rgba(15, 23, 43, .1), rgba(15, 23, 43, .1)), url(assets/images/video.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .video .btn-play {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    box-sizing: content-box;
+    display: block;
+    width: 32px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    padding: 18px 20px 18px 28px;
+  }
+  
+  .video .btn-play:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: block;
+    width: 100px;
+    height: 100px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: pulse-border 1500ms ease-out infinite;
+  }
+  
+  .video .btn-play:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: block;
+    width: 100px;
+    height: 100px;
+    background: var(--primary);
+    border-radius: 50%;
+    transition: all 200ms;
+  }
+  
+  .video .btn-play img {
+    position: relative;
+    z-index: 3;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+  }
+  
+  .video .btn-play span {
+    display: block;
+    position: relative;
+    z-index: 3;
+    width: 0;
+    height: 0;
+    border-left: 32px solid var(--dark);
+    border-top: 22px solid transparent;
+    border-bottom: 22px solid transparent;
+  }
+  
+  @keyframes pulse-border {
+    0% {
+      transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
+      opacity: 1;
+    }
+  
+    100% {
+      transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5);
+      opacity: 0;
+    }
+  }
+  
+  #videoModal {
+    z-index: 99999;
+  }
+  
+  #videoModal .modal-dialog {
+    position: relative;
+    max-width: 800px;
+    margin: 60px auto 0 auto;
+  }
+  
+  #videoModal .modal-body {
+    position: relative;
+    padding: 0px;
+  }
+  
+  #videoModal .close {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 0px;
+    top: -30px;
+    z-index: 999;
+    font-size: 30px;
+    font-weight: normal;
+    color: #FFFFFF;
+    background: #000000;
+    opacity: 1;
+  }
+
+  ///bgItem
+  
+  .bgItem{
+    background: linear-gradient(rgb(15 23 43 / 60%),rgb(15 23 43 / 60%)), url(../../../assets/image/fried-chick.webp);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #fff !important;
+    padding-bottom: 0;
+
+    .cardnew{
+      margin-bottom: 50px;
+      .icon{
+        margin: -100px auto 20px auto;
+        background-color: #fff;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        i{
+          margin: 0 !important;
+        }
+      }
+    }
+
+  }
+    
+}
+
+// .w-bor{
+//     height: .5px;
+//     width: 100%;
+//     background-color: #fff;
+//   }
+
+.formfill{
+  padding: 0px 50px;
+
+  @include md{
+    padding: 0;
+  }
+}
+
+
+// countryCode
+
+.form-floating{
+  width: 100% !important;
+}
+
+.selected-country-img{
+
+  background-color: $primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 5px;
+
+  img{
+    width: 40px;
+    height: 40px;
+  }
+
+  @include sm{
+    display: none;
+  }
+}
+
+select.countryCode{
+  background-color: $primary;
+  width: 180px;
+  border: none !important;
+  font-weight: bold;
+  color: white;
+  @include sm{
+    width: 80px;
+  }
+  &:focus-visible {
+    outline: none !important;
+  }
+  option{
+    background-color: white;
+    color: #000000;
+    left: -45px;
+  }
+}
+
+.form-control{
+  &.excep{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+}
+
+.dial-code{
+  display: flex;
+}
+
+.validateMsg{
+  color: $primary;
+  margin-top: 10px;
+  font-size: 80%;
+}
+
+.formSuccess{
+  margin-top: 10px;
+  background-color: green;
+  color: white;
+  padding: 20px;
+  font-size: 22px;
+  text-align: center;
+}
+
+.formFail{
+  margin-top: 10px;
+  background-color: green;
+  color: white;
+  padding: 20px;
+  font-size: 22px;
+  text-align: center;
+}
