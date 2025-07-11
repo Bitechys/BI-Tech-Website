@@ -11,9 +11,9 @@
       <div>
         <h1 #titleRef class="text-white slide_title">{{ slide.title }}</h1>
         <p #textRef class="slide_sub_title">{{ slide.text }}</p>
-        <a href="" class="mt-4 btn btn-primary test py-sm-3 px-sm-5 me-3 but mx-auto " routerLink="/about"><b>
+        <button class="mt-4 btn btn-primary test py-sm-3 px-sm-5 me-3 but mx-auto"  (click)="ScrollTo('#contact')"><b>
                         Let's Build Together...
-                    </b></a>
+                    </b></button>
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@
 <!-- About Start -->
 <div class="container-xxl section bg-primary text-white bg-lines" id="about">
     <div class="container">
-        <div class="row p-5">
+        <div class="row pt-3">
             <div class="col-12 col-sm-12 col-md-12">
                 <h2 class="text-white mb-4 text-center">Our Mission & Vision</h2>
                 <p>At Bi Tech Solutions, we believe that technology should empower businesses — not complicate them. We are a team of passionate developers, testers, and problem-solvers who specialize in building high-performance, scalable, and secure software solutions. With a deep understanding of both technology and business, we bridge the gap between your vision and real-world implementation.</p>
@@ -57,8 +57,17 @@
                 <p>Whether you're a startup or an established enterprise, our team is equipped to build, launch, and support the technology that moves your business forward.</p>
             </div>
         </div>
-        <div class="choose_container">
+        <!-- <div class="choose_container ">
             <div class="choose_card" *ngFor="let item of choose_grid">
+                <div class="choose_icon mb-3">
+                    <i class="fa-solid {{ item.icon }} fa-xl"></i>
+                </div>
+                <h4>{{ item.title }}</h4>
+                <p>{{ item.content }}</p>
+            </div>
+        </div> -->
+        <div class="choose_container owl-carousel testimonial-carousel">
+            <div class="choose_card testimonial-item" *ngFor="let item of choose_grid">
                 <div class="choose_icon mb-3">
                     <i class="fa-solid {{ item.icon }} fa-xl"></i>
                 </div>
@@ -130,9 +139,9 @@
                 <h1 class="text-white text-center">Want to Digitalize your Business</h1>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 d-flex justify-content-center">
-                <a href="" class="btn btn-white test py-sm-3 px-sm-5 but mx-auto " routerLink="/about"><b>
+                <button class="btn btn-white test py-sm-3 px-sm-5 but mx-auto" (click)="ScrollTo('#contact')"><b>
                         Connect with us...
-                    </b></a>
+                    </b></button>
             </div>
         </div>
     </div>

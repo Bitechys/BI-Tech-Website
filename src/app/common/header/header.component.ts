@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MainService } from 'src/app/service/main.service';
 import { gsap } from 'gsap/all';
 import { CookieService } from 'ngx-cookie-service';
-
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-header',
@@ -62,12 +62,47 @@ export class HeaderComponent implements AfterViewInit {
     this.isSticky = window.pageYOffset >= 100;
   }
 
-  ScrollTo(section: string) {
-     const el = document.getElementById(section.replace('#', ''));
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // ScrollTo(section: string) {
+  //    const el = document.getElementById(section.replace('#', ''));
+  //   if (el) {
+  //     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  //   }
+  // }
+ScrollTo(section: string) {
+  const el = document.getElementById(section.replace('#', ''));
+  const offcanvasEl = document.getElementById('offcanvasResponsive');
+
+  if (offcanvasEl) {
+    const isOffcanvasVisible = offcanvasEl.classList.contains('show');
+    if (isOffcanvasVisible && typeof bootstrap !== 'undefined') {
+      const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+      if (bsOffcanvas) {
+        bsOffcanvas.hide();
+
+        offcanvasEl.addEventListener(
+          'hidden.bs.offcanvas',
+          () => {
+            if (el) {
+              setTimeout(() => {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 10);
+            }
+          },
+          { once: true }
+        );
+        return;
+      }
     }
   }
+
+  // If offcanvas is not visible or not present, scroll directly
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+
+
 
     menu = [
     {

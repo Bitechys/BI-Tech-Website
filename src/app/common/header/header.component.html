@@ -57,7 +57,7 @@
           <!-- <div class="g-translate d-flex fcenter ms-3">
             <div id="google_translate_element"></div>
           </div> -->
-          <button title="Menu" class="btn btn-primary d-lg-none fit-height" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">
+          <button title="Menu" class="btn btn-primary text-white d-lg-none fit-height" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">
             <span class="fa fa-bars"></span>
           </button>
         </div>
@@ -94,22 +94,22 @@
 </div> -->
 
 
-<div class="offcanvas-lg offcanvas-start d-lg-none" data-bs-scroll="true" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+<div class="offcanvas-lg offcanvas-start d-lg-none" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel" data-bs-backdrop="true">
   <div class="offcanvas-header pb-0">
     <!-- <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5> -->
-    <div><img src="assets/image/CCChicken.png" alt="" class="sb_img"></div>
+    <!-- <div><img src="assets/image/CCChicken.png" alt="" class="sb_img"></div> -->
+         <img src="assets/images/logo/logo.png" alt="Logo" class="sb_img ">
     <!-- <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-label="Close"></button> -->
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
   
   </div>
   <div class="offcanvas-body px-0">
     <div class="custom-off">
-        <ng-container *ngFor="let item of this.service.menu; let i = index;">
+        <ng-container *ngFor="let item of this.menu; let i = index;">
             <!-- <a routerLink="{{item.url}}" class="nav-item nav-link">{{item.name}}</a> -->
-            <div class="sidebar" (click)="show(i)" >
-              <a class="main" [routerLink]="!item.child ? item.url : null" data-bs-dismiss="offcanvas"  [attr.data-bs-target]="!item.child ? '#offcanvasResponsive' : null">
-                <div class="rel">{{item.name}} <span><img src="assets/image/halal-logo.png" alt="" class="halal_l" *ngIf="item.name == 'Our food'"></span></div>
-                <!-- <div class="plus" [class.minus]="this.c_selected[i]" *ngIf="item.child"></div> -->
+            <div class="sidebar" >
+              <a class="main" routerLink="{{item.url}}" (click)="ScrollTo(item.url)" data-bs-dismiss="offcanvas" > 
+                <div class="rel">{{item.name}}</div>
               </a>
               <!-- <a *ngIf="item?.href; else routerLink" [attr.href]="item?.href" target="_blank" class="main">
                 <div class="rel">{{item.name}} <span><img src="assets/image/halal-logo.png" alt="" class="halal_l" *ngIf="item.name == 'Our food'"></span></div>

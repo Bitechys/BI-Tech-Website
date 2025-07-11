@@ -299,7 +299,7 @@ export class HomeComponent implements AfterViewInit {
           items: 1,
         },
         992: {
-          items: 1,
+          items: 3,
         },
       },
     });
@@ -551,8 +551,8 @@ export class HomeComponent implements AfterViewInit {
     },
   ];
 
-  scrollTo(section: string) {
-    const el = document.getElementById(section);
+  ScrollTo(section: string) {
+     const el = document.getElementById(section.replace('#', ''));
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }

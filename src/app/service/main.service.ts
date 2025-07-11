@@ -8,9 +8,9 @@ export class MainService {
 
   constructor() { }
 
-  mailId = "website@sif.net";
+  mailId = "bitechys@gmail.com";
 //   phoneNumber = "+91 9876541230"; 
-  phoneNumber = "+971-555-556-903"; 
+  phoneNumber = "+60 14-262 7634"; 
   mailAccessKey = "fae2f09c-7dd5-4813-b586-1c258cd13ca3";
 
   scroll = false
