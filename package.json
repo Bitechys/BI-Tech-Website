@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "git": "git add . && git commit -m 'update' && git push",
-    "predeploy": "ng build --configuration production --base-href https://Bitechys.github.io/BI-Tech-Website/",
+    "oldpredeploy": "ng build --configuration production --base-href https://Bitechys.github.io/BI-Tech-Website/",
+    "predeploy": "ng build --configuration production --base-href /",
     "deploy": "gh-pages -d dist/Bitechys",
     "upload": "ng build --configuration production --base-href ./"
   },

@@ -482,7 +482,7 @@ export class HomeComponent implements AfterViewInit {
       client: 'assets/images/clients/sif_bw.png'
     },
     {
-      client: 'assets/images/clients/vinova_bw.png'
+      client: 'assets/images/clients/uae_bw.png'
     },
     {
       client: 'assets/images/clients/mas.png'
