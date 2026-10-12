@@ -40,7 +40,7 @@ import { OnlyNumbersDirective } from './only-numbers.directive';
     OnlyNumbersDirective,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     // NgxIntlTelInputModule,
     ReactiveFormsModule,

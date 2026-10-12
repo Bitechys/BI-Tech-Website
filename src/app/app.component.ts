@@ -1,54 +1,78 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  Inject,
+  PLATFORM_ID,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { MainService } from './service/main.service';
 import * as AOS from 'aos';
 import { PreloadService } from './service/preload.service';
-
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss',],
+  styleUrls: ['./app.component.scss'],
   host: {
-
     '(window:scroll)': 'scroll($event)',
-
-  }
+  },
 })
-export class AppComponent implements AfterViewInit{
-  title = 'TheCrispyChicken';
-  loading: boolean = true;
-  
-  constructor(public service: MainService, public router: Router, private preloadService: PreloadService) { }
+export class AppComponent implements OnInit, AfterViewInit {
+  title = 'Bitechys';
+  loading = false; // important: render content on server
+  showScroll: any;
+
+  constructor(
+    public service: MainService,
+    public router: Router,
+    private preloadService: PreloadService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
-    this.preloadService.preloadAssets().then(() => {
-      console.log('All assets preloaded successfully');
-      this.loading = false
-      // Proceed with the rest of your application logic.
-    }).catch((error) => {
-      console.error('Error preloading assets:', error);
-      // Handle errors, e.g., display a message to the user.
-    });
-  }
-
-  ngAfterViewInit(): void {
-    AOS.init({once:true});
-
-    if (document.body.scrollTop || document.documentElement.scrollTop) {
-      AOS.refresh()
+    if (isPlatformBrowser(this.platformId)) {
+      this.loading = true;
+      this.preloadService
+        .preloadAssets()
+        .then(() => {
+          console.log('All assets preloaded successfully');
+          this.loading = false;
+        })
+        .catch((error) => {
+          console.error('Error preloading assets:', error);
+          this.loading = false;
+        });
+    } else {
+      this.loading = false;
     }
   }
 
-  showScroll: any;
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.init({ once: true });
+
+      if (document.body.scrollTop || document.documentElement.scrollTop) {
+        AOS.refresh();
+      }
+    }
+  }
 
   scroll($event: Event) {
+    if (!isPlatformBrowser(this.platformId)) return;
 
-    const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
-    const scrollTop = Math.max(document.body.scrollTop || 0, document.documentElement.scrollTop || 0)
-    //console.log(scrollTop + vh + 500, document.body.scrollHeight);
+    const vh = Math.max(
+      document.documentElement.clientHeight || 0,
+      window.innerHeight || 0
+    );
+    const scrollTop = Math.max(
+      document.body.scrollTop || 0,
+      document.documentElement.scrollTop || 0
+    );
+
     if (document.body.scrollHeight > vh) {
-      this.showScroll = true
+      this.showScroll = true;
     } else {
       this.showScroll = false;
     }
