@@ -1,0 +1,60 @@
+/*
+ * Shared, variant-neutral base. Each variant brings its own Tailwind entry (with @theme tokens),
+ * fonts and component styles; this file only holds what must be identical everywhere.
+ */
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: 1rem;
+  top: -100px;
+  z-index: 1000;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #22338e;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Section anchors land below fixed headers. */
+:target,
+[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Digits and Latin acronyms inside Arabic text keep their own direction. */
+.ltr-isolate {
+  unicode-bidi: isolate;
+  direction: ltr;
+}
+
+/* Honeypot for the contact form (Web3Forms "botcheck"). */
+.cf-botcheck {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

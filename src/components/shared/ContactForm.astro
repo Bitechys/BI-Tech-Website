@@ -1,0 +1,138 @@
+---
+/**
+ * Contact form → Web3Forms (same service as the old site, so Hostinger needs no backend).
+ * Fixes over the old form: the service <select> is now submitted (it had no name), phone is
+ * type="tel" (type="number" dropped "+" and leading zeros), a botcheck honeypot, and an
+ * in-page success/error message instead of leaving for web3forms.com. Without JavaScript it
+ * still posts normally.
+ *
+ * Unstyled on purpose: every variant styles the .cf-* classes itself.
+ */
+import { WEB3FORMS_KEY, company } from '../../lib/site';
+import { getDict, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+  /** Unique per page if a variant ever renders two forms. */
+  id?: string;
+  class?: string;
+}
+
+const { lang, id = 'contact-form', class: cls = '' } = Astro.props;
+const f = getDict(lang).contact.form;
+const fid = (name: string) => `${id}-${name}`;
+---
+
+<form
+  id={id}
+  class:list={['cf', cls]}
+  action="https://api.web3forms.com/submit"
+  method="POST"
+  data-cf
+  data-sending={f.sending}
+  data-success={f.success}
+  data-error={f.error}
+  data-email={company.email}
+>
+  <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+  <input type="hidden" name="subject" value={f.subject} />
+  <input type="hidden" name="from_name" value={f.fromName} />
+  <input type="hidden" name="language" value={lang} />
+  <input type="checkbox" name="botcheck" class="cf-botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+  <div class="cf-field">
+    <label class="cf-label" for={fid('name')}>{f.name}</label>
+    <input class="cf-input" id={fid('name')} name="name" type="text" autocomplete="name" required />
+  </div>
+
+  <div class="cf-field">
+    <label class="cf-label" for={fid('email')}>{f.email}</label>
+    <input class="cf-input ltr-isolate" id={fid('email')} name="email" type="email" autocomplete="email" inputmode="email" required />
+  </div>
+
+  <div class="cf-field">
+    <label class="cf-label" for={fid('phone')}>{f.phone}</label>
+    <input
+      class="cf-input ltr-isolate"
+      id={fid('phone')}
+      name="phone"
+      type="tel"
+      autocomplete="tel"
+      inputmode="tel"
+      minlength="6"
+      maxlength="24"
+      aria-describedby={fid('phone-hint')}
+      required
+    />
+    <p class="cf-hint" id={fid('phone-hint')}>{f.phoneHint}</p>
+  </div>
+
+  <div class="cf-field">
+    <label class="cf-label" for={fid('service')}>{f.service}</label>
+    <select class="cf-input cf-select" id={fid('service')} name="service">
+      <option value="">{f.servicePlaceholder}</option>
+      {f.services.map((s) => <option value={s}>{s}</option>)}
+    </select>
+  </div>
+
+  <div class="cf-field cf-field--full">
+    <label class="cf-label" for={fid('message')}>{f.message}</label>
+    <textarea class="cf-input cf-textarea" id={fid('message')} name="message" rows="4"></textarea>
+  </div>
+
+  <div class="cf-actions">
+    <button class="cf-submit" type="submit">
+      <span class="cf-submit-label">{f.submit}</span>
+    </button>
+    <p class="cf-status" role="status" aria-live="polite" data-state="idle"></p>
+  </div>
+</form>
+
+<script>
+  for (const form of document.querySelectorAll<HTMLFormElement>('form[data-cf]')) {
+    const status = form.querySelector<HTMLElement>('.cf-status')!;
+    const button = form.querySelector<HTMLButtonElement>('.cf-submit')!;
+    const label = form.querySelector<HTMLElement>('.cf-submit-label')!;
+    const idle = label.textContent ?? '';
+
+    const show = (state: 'idle' | 'sending' | 'success' | 'error', text: string, link = false) => {
+      status.dataset.state = state;
+      form.dataset.state = state;
+      status.textContent = text;
+      if (link) {
+        const email = form.dataset.email!;
+        const a = document.createElement('a');
+        a.href = `mailto:${email}`;
+        a.textContent = email;
+        a.className = 'ltr-isolate';
+        status.append(' ', a, '.');
+      }
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      button.disabled = true;
+      label.textContent = form.dataset.sending!;
+      show('sending', '');
+      try {
+        const body = Object.fromEntries(new FormData(form));
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(body),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || !json.success) throw new Error(json.message || res.statusText);
+        form.reset();
+        show('success', form.dataset.success!);
+        form.dispatchEvent(new CustomEvent('cf:success', { bubbles: true }));
+      } catch {
+        show('error', form.dataset.error!, true);
+      } finally {
+        button.disabled = false;
+        label.textContent = idle;
+      }
+    });
+  }
+</script>

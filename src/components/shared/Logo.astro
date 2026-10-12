@@ -1,0 +1,42 @@
+---
+/**
+ * The Bi Tech Solutions logo as inline SVG (traced from logo.png, see src/assets/brand/paths.ts).
+ * Parts carry classes so variants can animate them: .logo-pulse (sky line + node),
+ * .logo-arcs (navy signal arcs), .logo-word (wordmark).
+ *
+ *   tone="color"  navy + sky (light backgrounds)
+ *   tone="onDark" white + sky (dark backgrounds)
+ *   tone="mono"   everything currentColor
+ */
+import { LOGO_W, LOGO_H, WORD_Y, PAD, MARK_BOX, skyMark, navyMark, wordmark } from '../../assets/brand/paths';
+import { colors, company } from '../../lib/site';
+
+interface Props {
+  tone?: 'color' | 'onDark' | 'mono';
+  markOnly?: boolean;
+  class?: string;
+  /** Accessible name; pass '' when the logo sits next to visible brand text. */
+  title?: string;
+}
+
+const { tone = 'color', markOnly = false, class: cls = '', title = company.brand } = Astro.props;
+const sky = tone === 'mono' ? 'currentColor' : colors.sky;
+const navy = tone === 'mono' ? 'currentColor' : tone === 'onDark' ? '#ffffff' : colors.navy;
+const viewBox = markOnly ? `0 0 ${MARK_BOX.w} ${MARK_BOX.h}` : `0 0 ${LOGO_W} ${LOGO_H}`;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={viewBox}
+  class:list={['bt-logo', cls]}
+  role={title ? 'img' : undefined}
+  aria-label={title || undefined}
+  aria-hidden={title ? undefined : 'true'}
+  focusable="false"
+>
+  <g transform={`translate(${-PAD} ${-PAD})`} fill-rule="evenodd">
+    <path class="logo-pulse" fill={sky} d={skyMark} />
+    <path class="logo-arcs" fill={navy} d={navyMark} />
+  </g>
+  {!markOnly && <path class="logo-word" fill={navy} fill-rule="evenodd" transform={`translate(${-PAD} ${WORD_Y - PAD})`} d={wordmark} />}
+</svg>
