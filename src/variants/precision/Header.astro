@@ -1,0 +1,76 @@
+---
+import Logo from '../../components/shared/Logo.astro';
+import { getDict, homePath, otherLang, type Lang } from '../../i18n';
+import { navItems } from '../../lib/nav';
+
+interface Props {
+  lang: Lang;
+  base: string;
+}
+const { lang, base } = Astro.props;
+const t = getDict(lang);
+const items = navItems(t);
+const alt = otherLang(lang);
+const altHref = homePath(alt, base);
+---
+
+<header class="site-header" data-header data-scrolled="false">
+  <div class="wrap flex h-[4.5rem] items-center justify-between gap-6">
+    <a href="#top" class="shrink-0 rounded-md">
+      <Logo class="h-10 w-auto sm:h-11" title="Bi Tech Solutions" />
+    </a>
+
+    <nav aria-label={t.a11y.primaryNav} class="hidden lg:block">
+      <ul class="flex items-center gap-1">
+        {items.map((i) => (
+          <li>
+            <a class="nav-link" href={i.href} data-nav={i.id}>{i.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        class="rounded-full px-3 py-2 text-[0.9rem] font-semibold text-navy transition-colors hover:bg-mist"
+        href={altHref}
+        hreflang={t.langSwitch.hreflang}
+        lang={t.langSwitch.hreflang}
+      >
+        {t.langSwitch.label}
+      </a>
+      <a class="btn btn-primary min-h-10! px-5! text-[0.875rem]! max-lg:hidden" href="#contact">{t.nav.cta}</a>
+      <button
+        type="button"
+        class="grid size-11 place-items-center rounded-full text-ink transition-colors hover:bg-mist lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-menu-open
+      >
+        <span class="sr-only">{t.a11y.menu}</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 7h18M3 12h18M3 17h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="mobile-panel" role="dialog" aria-modal="true" aria-label={t.a11y.menu} hidden data-menu>
+    <div class="flex h-14 items-center justify-between">
+      <Logo class="h-10 w-auto" title="" />
+      <button type="button" class="grid size-11 place-items-center rounded-full hover:bg-mist" data-menu-close>
+        <span class="sr-only">{t.a11y.closeMenu}</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label={t.a11y.primaryNav} class="mt-6 flex-1 overflow-y-auto">
+      {items.map((i) => <a class="m-link" href={i.href} data-menu-link>{i.label}</a>)}
+    </nav>
+    <div class="mt-6 grid gap-3">
+      <a class="btn btn-primary w-full" href="#contact" data-menu-link>{t.nav.cta}</a>
+      <a class="btn btn-ghost w-full" href={altHref} hreflang={t.langSwitch.hreflang} lang={t.langSwitch.hreflang}>{t.langSwitch.label}</a>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,194 @@
+---
+/**
+ * Hero: the brand line as h1, the logo mark drawn as an annotated technical figure, and the
+ * four promises from the old slider as a rail (all visible; the highlight cycles).
+ */
+import { getDict, type Lang } from '../../i18n';
+import { skyMark, navyMark, PAD } from '../../assets/brand/paths';
+import { colors } from '../../lib/site';
+import { precisionStrings } from './strings';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = getDict(lang);
+const s = precisionStrings[lang];
+const tg = t.tagline;
+
+// Node of the pulse line (centre of the sky dot) in logo coordinates — the arcs radiate from it.
+const NODE = { x: 840, y: 617 };
+// Leader lines: from a point on each arc out to a label column.
+const leaders = [
+  { from: [1328, 214], label: s.api },
+  { from: [1176, 340], label: s.mobile },
+  { from: [1013, 452], label: s.web },
+];
+const LABEL_X = 1540;
+const isAr = lang === 'ar';
+---
+
+<section id="top" class="relative overflow-hidden pt-28 pb-14 sm:pt-36 sm:pb-20">
+  <div class="draft-grid pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+
+  <div class="wrap grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
+    <div class="lg:col-span-7">
+      <p class="kicker" data-reveal>{t.hero.eyebrow}</p>
+      <h1 class="h-display mt-6" data-reveal style="--d:1">
+        {
+          isAr ? (
+            <>
+              {tg.lead} {tg.meets} <span class="text-sky-ink">{tg.business}</span> <span class="text-navy">{tg.precision}</span>
+            </>
+          ) : (
+            <>
+              {tg.lead} <span class="text-sky-ink">{tg.business}</span> {tg.meets} <span class="text-navy">{tg.precision}</span>
+            </>
+          )
+        }
+      </h1>
+      <p class="lede mt-7 max-w-[36rem]" data-reveal style="--d:2">{t.intro.body}</p>
+      <div class="mt-10 flex flex-wrap gap-3" data-reveal style="--d:3">
+        <a class="btn btn-primary" href="#contact">
+          {t.hero.cta}
+          <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+        <a class="btn btn-ghost" href="#work">{t.hero.ctaSecondary}</a>
+      </div>
+    </div>
+
+    <figure class="mark-figure relative mx-auto w-full max-w-[38rem] lg:col-span-5 lg:-me-10" data-mark>
+      <svg viewBox="-60 -190 1980 1180" class="h-auto w-full overflow-visible" role="img" aria-labelledby="mark-fig-title">
+        <title id="mark-fig-title">{s.figure}</title>
+        <defs>
+          <clipPath id="clip-pulse">
+            <rect class="clip-pulse-rect" x="-40" y="-40" width="1000" height="980"></rect>
+          </clipPath>
+          <clipPath id="clip-arcs">
+            <circle class="clip-arc" cx={NODE.x} cy={NODE.y} r="1000"></circle>
+          </clipPath>
+        </defs>
+
+        <!-- drafting guides -->
+        <g class="guides" aria-hidden="true">
+          <line class="dim draw" x1="-40" y1={NODE.y} x2="1500" y2={NODE.y} stroke-dasharray="6 10"></line>
+          <line class="dim draw" x1={NODE.x} y1="-150" x2={NODE.x} y2="940" stroke-dasharray="6 10"></line>
+          <circle class="dim draw" cx={NODE.x} cy={NODE.y} r="560" stroke-dasharray="6 10"></circle>
+          <!-- baseline dimension under the mark -->
+          <line class="dim draw" x1="20" y1="930" x2="1460" y2="930"></line>
+          <line class="dim" x1="20" y1="905" x2="20" y2="955"></line>
+          <line class="dim" x1="1460" y1="905" x2="1460" y2="955"></line>
+        </g>
+
+        <g transform={`translate(${-PAD} ${-PAD})`} fill-rule="evenodd">
+          <path fill={colors.sky} d={skyMark} clip-path="url(#clip-pulse)"></path>
+          <path fill={colors.navy} d={navyMark} clip-path="url(#clip-arcs)"></path>
+        </g>
+
+        <circle class="ping" cx={NODE.x} cy={NODE.y} r="60" aria-hidden="true"></circle>
+        <circle class="ping p2" cx={NODE.x} cy={NODE.y} r="60" aria-hidden="true"></circle>
+
+        <!-- annotations -->
+        <g class="annotations" aria-hidden="true">
+          {
+            leaders.map((l, i) => (
+              <g class="leader" style={`--i:${i}`}>
+                <circle cx={l.from[0]} cy={l.from[1]} r="9" fill={colors.navy} />
+                <polyline class="dim draw" points={`${l.from[0]},${l.from[1]} ${l.from[0] + 60},${l.from[1] - 60} ${LABEL_X - 20},${l.from[1] - 60}`} />
+                <text class="dim-label" x={LABEL_X} y={l.from[1] - 45} style={isAr ? 'font-family: var(--font-sans); font-size: 60px' : undefined}>{l.label}</text>
+              </g>
+            ))
+          }
+          <g class="leader" style="--i:3">
+            <circle cx="458" cy="96" r="9" fill={colors.sky} />
+            <polyline class="dim draw" points="458,96 458,-110 560,-110" />
+            <text class="dim-label" x="580" y="-95" style={isAr ? 'font-family: var(--font-sans); font-size: 60px' : undefined}>{s.qa}</text>
+          </g>
+        </g>
+      </svg>
+    </figure>
+  </div>
+
+  <div class="wrap mt-16 sm:mt-24">
+    <div class="promise-rail relative" data-rail data-paused="false">
+      <ol class="grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          t.hero.slides.map((slide, i) => (
+            <li class="promise" data-promise data-active={i === 0 ? 'true' : 'false'} data-reveal style={`--d:${i}`}>
+              <span class="bar" aria-hidden="true" />
+              <span class="num ltr-isolate">0{i + 1}</span>
+              <p class="t">{slide.title}</p>
+              <p class="d">{slide.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <button
+        type="button"
+        class="absolute -top-11 end-0 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold text-mute transition-colors hover:bg-mist hover:text-navy"
+        data-rail-toggle
+        data-label-pause={t.a11y.pause}
+        data-label-play={t.a11y.play}
+      >
+        <span class="inline-flex" data-icon-pause><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 2v8M9 2v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></span>
+        <span class="inline-flex" data-icon-play hidden><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 2l7 4-7 4z" fill="currentColor"></path></svg></span>
+        <span data-rail-label>{t.a11y.pause}</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Drawing sequence. Without JS (or with reduced motion) the final state shows immediately. */
+  :global(.js) .mark-figure .clip-pulse-rect {
+    transform: scaleX(0);
+    transform-origin: 0 0;
+    transition: transform 1.2s var(--ease-precise) 0.25s;
+  }
+  :global(.js) .mark-figure .clip-arc {
+    transform: scale(0);
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 1.5s var(--ease-precise) 1.05s;
+  }
+  :global(.js) .mark-figure .draw {
+    stroke-dashoffset: 2400;
+    transition: stroke-dashoffset 1.8s var(--ease-precise) calc(1.6s + var(--i, 0) * 0.15s);
+  }
+  :global(.js) .mark-figure .guides .draw {
+    stroke-dasharray: 2400;
+    transition-delay: 0s;
+  }
+  :global(.js) .mark-figure .guides line[stroke-dasharray],
+  :global(.js) .mark-figure .guides circle[stroke-dasharray] {
+    stroke-dasharray: 6 10;
+    stroke-dashoffset: 0;
+    opacity: 0;
+    transition: opacity 1.2s var(--ease-precise);
+  }
+  :global(.js) .mark-figure .annotations .draw {
+    stroke-dasharray: 2400;
+  }
+  :global(.js) .mark-figure .leader circle,
+  :global(.js) .mark-figure .leader text {
+    opacity: 0;
+    transition: opacity 0.6s var(--ease-precise) calc(1.9s + var(--i, 0) * 0.15s);
+  }
+  :global(.js) .mark-figure.is-drawn .clip-pulse-rect,
+  :global(.js) .mark-figure.is-drawn .clip-arc {
+    transform: none;
+  }
+  :global(.js) .mark-figure.is-drawn .draw {
+    stroke-dashoffset: 0;
+  }
+  :global(.js) .mark-figure.is-drawn .guides line[stroke-dasharray],
+  :global(.js) .mark-figure.is-drawn .guides circle[stroke-dasharray],
+  :global(.js) .mark-figure.is-drawn .leader circle,
+  :global(.js) .mark-figure.is-drawn .leader text {
+    opacity: 1;
+  }
+  :global(html[dir='rtl']) .mark-figure text {
+    direction: rtl;
+    text-anchor: end;
+  }
+</style>
