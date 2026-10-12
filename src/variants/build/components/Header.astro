@@ -1,0 +1,69 @@
+---
+import Logo from '../../../components/shared/Logo.astro';
+import { getDict, homePath, otherLang, type Lang } from '../../../i18n';
+import { navItems } from '../../../lib/nav';
+
+interface Props {
+  lang: Lang;
+  base: string;
+}
+const { lang, base } = Astro.props;
+const t = getDict(lang);
+const items = navItems(t);
+const alt = otherLang(lang);
+const switchProps = { href: homePath(alt, base), hreflang: t.langSwitch.hreflang, lang: alt, 'aria-label': t.langSwitch.aria };
+---
+
+<header class="hdr" data-hdr>
+  <div class="hdr-in wrap">
+    <a href={homePath(lang, base)} class="hdr-brand">
+      <Logo class="hdr-logo" />
+    </a>
+
+    <nav class="hdr-nav" aria-label={t.a11y.primaryNav}>
+      <ul>
+        {items.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="hdr-actions">
+      <a class="hdr-lang" {...switchProps}>{t.langSwitch.label}</a>
+      <a class="btn btn-primary btn-sm hdr-cta" href="#contact">{t.nav.cta}</a>
+      <button class="hdr-burger" type="button" aria-expanded="false" aria-controls="bt-menu" data-menu-open>
+        <span class="sr-only">{t.a11y.menu}</span>
+        <span class="burger-lines" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Outside <header>: its backdrop-filter would make it the containing block for position: fixed. -->
+<div class="menu" id="bt-menu" data-menu role="dialog" aria-modal="true" aria-label={t.a11y.menu} hidden>
+    <div class="menu-in wrap">
+      <div class="menu-top">
+        <Logo class="hdr-logo" title="" />
+        <button class="menu-close" type="button" data-menu-close>
+          <span class="sr-only">{t.a11y.closeMenu}</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+        </button>
+      </div>
+      <nav aria-label={t.a11y.menu}>
+        <ol class="menu-list">
+          {
+            items.map((i, n) => (
+              <li>
+                <a href={i.href} data-menu-link>
+                  <span class="menu-idx ltr-isolate" aria-hidden="true">0{n + 1}</span>
+                  {i.label}
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+      <div class="menu-foot">
+        <a class="btn btn-primary" href="#contact" data-menu-link>{t.nav.cta}</a>
+        <a class="hdr-lang" {...switchProps}>{t.langSwitch.label}</a>
+      </div>
+    </div>
+</div>
