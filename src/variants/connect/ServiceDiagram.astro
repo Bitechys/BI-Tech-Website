@@ -1,0 +1,51 @@
+---
+/**
+ * The services as one connected system: the Bi Tech mark at the hub, one node per service.
+ * connect.ts sets data-active on <g data-svc-node> to light a node and its link.
+ */
+import Logo from '../../components/shared/Logo.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  ids: string[];
+}
+const { ids } = Astro.props;
+const C = 260;
+const R = 196;
+const pts = ids.map((id, i) => {
+  const a = -Math.PI / 2 + (i / ids.length) * Math.PI * 2;
+  return { id, x: C + Math.cos(a) * R, y: C + Math.sin(a) * R };
+});
+---
+
+<div class="cx-diagram">
+  <svg viewBox="0 0 520 520" focusable="false">
+    <circle class="cx-dg-orbit" cx={C} cy={C} r={R} />
+    <circle class="cx-dg-orbit cx-dg-orbit--inner" cx={C} cy={C} r={R * 0.52} />
+    {
+      pts.map((p, i) => {
+        const q = pts[(i + 1) % pts.length];
+        return <line class="cx-dg-ring" x1={p.x} y1={p.y} x2={q.x} y2={q.y} />;
+      })
+    }
+    {
+      pts.map((p, i) => (
+        <g class="cx-dg-node" data-svc-node={i} data-active={i === 0 ? 'true' : 'false'}>
+          <line class="cx-dg-link" x1={C} y1={C} x2={p.x} y2={p.y} />
+          <line class="cx-dg-flow" x1={C} y1={C} x2={p.x} y2={p.y} pathLength="100" />
+          <circle class="cx-dg-halo" cx={p.x} cy={p.y} r="38" />
+          <circle class="cx-dg-dot" cx={p.x} cy={p.y} r="28" />
+        </g>
+      ))
+    }
+    <circle class="cx-dg-hub" cx={C} cy={C} r="62" />
+  </svg>
+  {
+    pts.map((p, i) => (
+      <span class="cx-dg-icon" data-svc-icon={i} style={`left: ${(p.x / 520) * 100}%; top: ${(p.y / 520) * 100}%`}>
+        <Icon name={p.id} />
+      </span>
+    ))
+  }
+  <span class="cx-dg-mark"><Logo tone="onDark" markOnly title="" /></span>
+</div>
