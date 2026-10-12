@@ -1,0 +1,75 @@
+---
+/**
+ * Static hero network: the fallback (reduced motion, no WebGL, touch devices) and the first
+ * paint before the Three.js scene fades in. Deterministic layout so EN/AR builds match.
+ * A few edges carry CSS dash "pulses" (switched off by prefers-reduced-motion in base.css).
+ */
+const W = 1440;
+const H = 900;
+let seed = 7;
+const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+
+// Jittered grid → even coverage, biased to the right/bottom so the copy stays readable.
+const nodes: { x: number; y: number; r: number; hub: boolean }[] = [];
+const cols = 11;
+const rows = 7;
+for (let c = 0; c < cols; c++) {
+  for (let r = 0; r < rows; r++) {
+    if (rand() < 0.28) continue;
+    const x = (c + 0.5 + (rand() - 0.5) * 0.8) * (W / cols);
+    const y = (r + 0.5 + (rand() - 0.5) * 0.8) * (H / rows);
+    const hub = rand() < 0.12;
+    nodes.push({ x, y, r: hub ? 4.5 : 1.6 + rand() * 1.6, hub });
+  }
+}
+
+const edges: [number, number][] = [];
+const seen = new Set<string>();
+nodes.forEach((a, i) => {
+  const near = nodes
+    .map((b, j) => ({ j, d: Math.hypot(a.x - b.x, a.y - b.y) }))
+    .filter((n) => n.j !== i)
+    .sort((p, q) => p.d - q.d)
+    .slice(0, a.hub ? 4 : 2);
+  for (const n of near) {
+    const key = i < n.j ? `${i}-${n.j}` : `${n.j}-${i}`;
+    if (!seen.has(key) && n.d < 260) {
+      seen.add(key);
+      edges.push([i, n.j]);
+    }
+  }
+});
+const pulses = edges.filter((_, i) => i % 5 === 0).slice(0, 14);
+---
+
+<svg class="cx-net" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" focusable="false">
+  <defs>
+    <radialGradient id="cx-net-fade" cx="70%" cy="45%" r="75%">
+      <stop offset="0" stop-color="#fff" stop-opacity="1" />
+      <stop offset="1" stop-color="#fff" stop-opacity="0.15" />
+    </radialGradient>
+    <mask id="cx-net-mask"><rect width={W} height={H} fill="url(#cx-net-fade)" /></mask>
+  </defs>
+  <g mask="url(#cx-net-mask)">
+    <g class="cx-net-edges">
+      {edges.map(([a, b]) => <line x1={nodes[a].x.toFixed(1)} y1={nodes[a].y.toFixed(1)} x2={nodes[b].x.toFixed(1)} y2={nodes[b].y.toFixed(1)} />)}
+    </g>
+    <g class="cx-net-pulses">
+      {
+        pulses.map(([a, b], i) => (
+          <line
+            x1={nodes[a].x.toFixed(1)}
+            y1={nodes[a].y.toFixed(1)}
+            x2={nodes[b].x.toFixed(1)}
+            y2={nodes[b].y.toFixed(1)}
+            pathLength="100"
+            style={`animation-delay: ${(-i * 0.73).toFixed(2)}s`}
+          />
+        ))
+      }
+    </g>
+    <g class="cx-net-nodes">
+      {nodes.map((n) => <circle cx={n.x.toFixed(1)} cy={n.y.toFixed(1)} r={n.r.toFixed(1)} class={n.hub ? 'is-hub' : undefined} />)}
+    </g>
+  </g>
+</svg>
