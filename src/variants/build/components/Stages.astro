@@ -1,0 +1,235 @@
+---
+/**
+ * #services as four build stages: Design → Build → Connect → Test (all six services).
+ * Default (no JS, reduced motion, < 1024px): stacked cards, each with copy + its visual.
+ * Desktop with motion: main.ts adds .is-pinned — copies overlap in one grid cell, visuals in
+ * the other, and scroll progress picks the active stage (CSS transitions do the rest).
+ */
+import { getDict, type Lang } from '../../../i18n';
+import { strings, STAGES } from '../strings';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = getDict(lang);
+const s = strings(lang);
+const svc = Object.fromEntries(t.services.items.map((i) => [i.id, i]));
+
+const stages = STAGES.map((st) => {
+  const first = svc[st.services[0]];
+  const head = st.slide ? t.hero.slides[st.slide] : { title: first.title, text: first.body };
+  const list = st.slide ? st.services.map((id) => svc[id]) : [];
+  return { ...st, head, list };
+});
+const check = 'M3 8.5l3.2 3L13 4.5';
+// Heartbeat built from the logo's pulse line, repeated across the monitor.
+const beat = 'h26l4 4 9-20 11 26 7-10';
+const heartbeat = `M0 22 ${Array(4).fill(beat).join(' ')} h40`;
+---
+
+<section id="services" class="sec stages" aria-labelledby="services-title" data-stages>
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="kicker">{t.services.kicker}</p>
+      <h2 id="services-title" class="sec-title">{t.services.title}</h2>
+      <p class="sec-lead">{t.services.intro}</p>
+    </header>
+
+    <div class="stages-pin" data-stages-pin>
+      <div class="rail" aria-hidden="true">
+        <span class="rail-track"><span class="rail-fill" data-rail-fill></span></span>
+        <ol>
+          {
+            stages.map((st, i) => (
+              <li class="rail-step" data-rail-step>
+                <span class="rail-dot">
+                  <svg viewBox="0 0 16 16"><path d={check} /></svg>
+                </span>
+                <span class="rail-num ltr-isolate">0{i + 1}</span>
+                <span class="rail-name">{s.stage[st.id]}</span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+
+      <div class="stages-stack">
+        {
+          stages.map((st, i) => (
+            <div class={`stage stage--${st.id}`} data-stage>
+              <div class="stage-copy">
+                <p class="stage-label">
+                  <span class="ltr-isolate">0{i + 1}</span>
+                  <span aria-hidden="true">/</span>
+                  {s.stage[st.id]}
+                </p>
+                <h3 class="stage-title">{st.head.title}</h3>
+                <p class="stage-text">{st.head.text}</p>
+                {st.list.length > 0 && (
+                  <ul class="stage-services">
+                    {st.list.map((it) => (
+                      <li>
+                        <h4>{it.title}</h4>
+                        <p>{it.body}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              <div class="stage-visual" aria-hidden="true">
+                <div class={`vz vz-${st.id}`}>
+                  {st.id === 'design' && (
+                    <>
+                      <div class="art">
+                        <span class="art-label" dir="ltr">Home — 1440</span>
+                        <span class="w w-nav" />
+                        <span class="w w-h" />
+                        <span class="w w-h w-h--s" />
+                        <span class="w w-btn">
+                          <span class="sel">
+                            <i />
+                            <i />
+                            <i />
+                            <i />
+                            <em dir="ltr">{s.selection}</em>
+                          </span>
+                          <svg class="cursor" viewBox="0 0 24 24">
+                            <path d="M5 3l14 8-6 1.6L10 19z" />
+                          </svg>
+                        </span>
+                        <span class="w w-img" />
+                        <span class="w-grid">
+                          <span class="w w-card" />
+                          <span class="w w-card" />
+                          <span class="w w-card" />
+                        </span>
+                      </div>
+                      <div class="swatches" dir="ltr">
+                        <span style="--c:#22338E"><em>#22338E</em></span>
+                        <span style="--c:#31B3ED"><em>#31B3ED</em></span>
+                        <span style="--c:#0E1530"><em>#0E1530</em></span>
+                        <span style="--c:#F5F6FA"><em>#F5F6FA</em></span>
+                      </div>
+                    </>
+                  )}
+
+                  {st.id === 'build' && (
+                    <>
+                      <div class="mini-browser">
+                        <span class="mini-bar">
+                          <i />
+                          <i />
+                          <i />
+                        </span>
+                        <span class="mb mb-nav" />
+                        <span class="mb mb-h" />
+                        <span class="mb mb-h mb-h--s" />
+                        <span class="mb mb-btn" />
+                        <span class="mb-cards">
+                          <span class="mb mb-card" />
+                          <span class="mb mb-card" />
+                          <span class="mb mb-card" />
+                        </span>
+                      </div>
+                      <div class="mini-phone">
+                        <span class="mb mb-nav" />
+                        <span class="mb mb-h" />
+                        <span class="mb mb-btn" />
+                        <span class="mb mb-card" />
+                        <span class="mb mb-card" />
+                      </div>
+                      <code class="vz-chip" dir="ltr">
+                        &lt;<b>App</b> platform=<s>"web | android"</s> /&gt;
+                      </code>
+                    </>
+                  )}
+
+                  {st.id === 'connect' && (
+                    <>
+                      <svg class="graph" viewBox="0 0 420 300">
+                        <g class="links">
+                          <path d="M210 150 L70 70" />
+                          <path d="M210 150 L70 230" />
+                          <path d="M210 150 L350 70" />
+                          <path d="M210 150 L350 230" />
+                          <path d="M210 150 L210 34" />
+                          <path d="M210 150 L210 266" />
+                        </g>
+                        <g class="flows">
+                          <path d="M210 150 L70 70" />
+                          <path d="M70 230 L210 150" />
+                          <path d="M210 150 L350 70" />
+                          <path d="M350 230 L210 150" />
+                          <path d="M210 34 L210 150" />
+                          <path d="M210 150 L210 266" />
+                        </g>
+                        <g class="nodes">
+                          <g transform="translate(70 70)"><rect x="-52" y="-17" width="104" height="34" rx="17" /><text>{s.nodes.web}</text></g>
+                          <g transform="translate(70 230)"><rect x="-52" y="-17" width="104" height="34" rx="17" /><text>{s.nodes.android}</text></g>
+                          <g transform="translate(350 70)"><rect x="-52" y="-17" width="104" height="34" rx="17" /><text>{s.nodes.erp}</text></g>
+                          <g transform="translate(350 230)"><rect x="-52" y="-17" width="104" height="34" rx="17" /><text>{s.nodes.crm}</text></g>
+                          <g transform="translate(210 34)"><rect x="-60" y="-17" width="120" height="34" rx="17" /><text>{s.nodes.db}</text></g>
+                          <g transform="translate(210 266)"><rect x="-60" y="-17" width="120" height="34" rx="17" /><text>{s.nodes.bi}</text></g>
+                        </g>
+                        <g class="hub" transform="translate(210 150)">
+                          <circle r="40" class="hub-ring" />
+                          <circle r="30" />
+                          <text>API</text>
+                        </g>
+                      </svg>
+                      <div class="log" dir="ltr">
+                        <span><b class="m-get">GET</b> /v1/orders <em>200</em></span>
+                        <span><b class="m-post">POST</b> /v1/sync <em>201</em></span>
+                        <span><b class="m-etl">ETL</b> nightly <em>✓ {s.synced}</em></span>
+                      </div>
+                    </>
+                  )}
+
+                  {st.id === 'test' && (
+                    <div class="runner">
+                      <div class="runner-head">
+                        <span>{s.stage.test}</span>
+                        <span class="ltr-isolate">5 / 5</span>
+                      </div>
+                      <ul class="checks">
+                        {s.checks.map((c, n) => (
+                          <li style={`--i:${n}`}>
+                            <span class="tick">
+                              <svg viewBox="0 0 16 16">
+                                <path d={check} />
+                              </svg>
+                            </span>
+                            <span class="check-name">{c}</span>
+                            <span class="check-bar" />
+                          </li>
+                        ))}
+                      </ul>
+                      <div class="monitor">
+                        <svg viewBox="0 0 280 44" preserveAspectRatio="none">
+                          <path d={heartbeat} />
+                        </svg>
+                      </div>
+                      <div class="runner-foot">
+                        <span class="pass">{s.allPassed}</span>
+                        <span class="ship">{s.ready}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  <span class="stage-done">
+                    <svg viewBox="0 0 16 16">
+                      <path d={check} />
+                    </svg>
+                    {s.stage[st.id]}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

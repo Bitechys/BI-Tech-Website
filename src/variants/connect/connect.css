@@ -666,17 +666,22 @@
 .cx-signal-panels {
   display: grid;
 }
+/* Sequential, not a cross-fade: the outgoing slide leaves first so the two texts never overlap. */
 .cx-signal-panel {
   grid-area: 1 / 1;
   transition:
-    opacity 0.6s var(--ease),
-    transform 0.6s var(--ease),
-    visibility 0.6s;
+    opacity 0.45s var(--ease) 0.25s,
+    transform 0.45s var(--ease) 0.25s,
+    visibility 0s 0.25s;
 }
 .cx-signal-panel[data-active='false'] {
   opacity: 0;
   visibility: hidden;
   transform: translateY(8px);
+  transition:
+    opacity 0.2s var(--ease),
+    transform 0.2s var(--ease),
+    visibility 0s 0.2s;
 }
 .cx-signal-title {
   font-size: 1.15rem;

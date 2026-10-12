@@ -1,0 +1,131 @@
+---
+/**
+ * Hero: the real copy (h1 = slide 1) on one side; on the other a decorative "build": code types
+ * itself, compiles, and a browser + phone assemble from wireframe to styled UI.
+ * The whole visual is aria-hidden; the editor stays LTR on the Arabic page (code is code).
+ */
+import { getDict, type Lang } from '../../../i18n';
+import { strings } from '../strings';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = getDict(lang);
+const s = strings(lang);
+const slide = t.hero.slides[0];
+
+type Tok = [cls: string, text: string];
+const code: Tok[][] = [
+  [['kw', 'import'], ['p', ' { '], ['fn', 'design'], ['p', ', '], ['fn', 'build'], ['p', ', '], ['fn', 'connect'], ['p', ', '], ['fn', 'test'], ['p', ' }']],
+  [['p', '  '], ['kw', 'from'], ['p', ' '], ['str', '"@bitech/studio"'], ['p', ';']],
+  [],
+  [['kw', 'const'], ['p', ' '], ['v', 'product'], ['p', ' = '], ['fn', 'design'], ['p', '('], ['v', 'yourIdea'], ['p', ')']],
+  [['p', '  .'], ['fn', 'then'], ['p', '('], ['fn', 'build'], ['p', '({ '], ['pr', 'web'], ['p', ', '], ['pr', 'android'], ['p', ' }))']],
+  [['p', '  .'], ['fn', 'then'], ['p', '('], ['fn', 'connect'], ['p', '('], ['v', 'api'], ['p', ', '], ['v', 'etl'], ['p', '))']],
+  [['p', '  .'], ['fn', 'then'], ['p', '('], ['v', 'test'], ['p', '.'], ['pr', 'everything'], ['p', ');']],
+  [],
+  [['kw', 'await'], ['p', ' '], ['v', 'product'], ['p', '.'], ['fn', 'ship'], ['p', '(); '], ['cm', '// ✓ shipped']],
+];
+const lineText = (l: Tok[]) => l.map(([, x]) => x).join('');
+const indent = (l: Tok[]) => (lineText(l).match(/^ */)?.[0].length ?? 0);
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-in wrap">
+    <div class="hero-copy">
+      <p class="eyebrow hero-reveal"><span class="eyebrow-dot" aria-hidden="true"></span>{t.hero.eyebrow}</p>
+      <h1 id="hero-title" class="hero-title hero-reveal">{slide.title}</h1>
+      <p class="hero-text hero-reveal">{slide.text}</p>
+      <div class="hero-ctas hero-reveal">
+        <a class="btn btn-primary" href="#contact">
+          {t.hero.cta}
+          <svg class="btn-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" /></svg>
+        </a>
+        <a class="btn btn-ghost" href="#work">{t.hero.ctaSecondary}</a>
+      </div>
+    </div>
+
+    <div class="hv" data-hv>
+      <div class="hv-stage" aria-hidden="true">
+        <div class="hv-editor" dir="ltr">
+          <div class="hv-bar">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="hv-tab">product.ts</span>
+          </div>
+          <div class="hv-code" data-code>
+            {
+              code.map((l, i) => (
+                <div class="cl-row">
+                  <span class="ln">{i + 1}</span>
+                  <span class="cl" data-n={lineText(l).length} data-indent={indent(l)}>
+                    {l.length ? l.map(([c, x]) => <span class={`tk-${c}`}>{x}</span>) : ' '}
+                  </span>
+                </div>
+              ))
+            }
+            <span class="caret" data-caret></span>
+          </div>
+          <div class="hv-status" data-status>
+            <span class="hv-status-run"><span class="spin"></span>{s.compiling}</span>
+            <span class="hv-status-ok"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" /></svg>{s.compiled}</span>
+          </div>
+        </div>
+
+        <div class="hv-browser" data-device>
+          <div class="hv-bar hv-bar--light">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="hv-url">your-business.app</span>
+          </div>
+          <div class="ui ui-web" data-ui>
+            <div class="ui-nav">
+              <span class="blk b-logo"></span>
+              <span class="ui-links"><span class="blk b-link"></span><span class="blk b-link"></span><span class="blk b-link"></span></span>
+              <span class="blk b-btn"></span>
+            </div>
+            <div class="ui-main">
+              <div class="ui-heroblock">
+                <span class="blk b-h1"></span>
+                <span class="blk b-h1 b-h1--short"></span>
+                <span class="blk b-p"></span>
+                <span class="blk b-p b-p--short"></span>
+                <span class="blk b-cta"></span>
+              </div>
+              <div class="blk b-chart">
+                <span class="bars"><i style="--h:42%"></i><i style="--h:64%"></i><i style="--h:50%"></i><i style="--h:78%"></i><i style="--h:60%"></i><i style="--h:92%"></i></span>
+                <svg class="b-line" viewBox="0 0 120 50" preserveAspectRatio="none"><path d="M0 40 L20 32 L40 36 L60 20 L80 24 L100 10 L120 6" /></svg>
+              </div>
+            </div>
+            <div class="ui-cards">
+              <span class="blk b-card"><i></i><b></b></span>
+              <span class="blk b-card"><i></i><b></b></span>
+              <span class="blk b-card"><i></i><b></b></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hv-phone" data-device>
+          <div class="ui ui-app" data-ui>
+            <span class="notch"></span>
+            <div class="ui-app-head"><span class="blk b-avatar"></span><span class="app-title">{s.appTitle}</span></div>
+            <span class="blk b-tile"><i></i><b></b></span>
+            <span class="blk b-row"></span>
+            <span class="blk b-row"></span>
+            <span class="blk b-row"></span>
+            <span class="ui-tabbar"><i></i><i></i><i></i><i></i></span>
+          </div>
+        </div>
+
+        <div class="hv-chip" data-chip>
+          <span class="chip-dot"></span>
+          <span class="chip-label">{s.passing}</span>
+          <svg class="pulse" viewBox="0 0 80 28"><path d="M0 16h20l4 3 8-16 10 22 6-11h16" /><circle cx="70" cy="14" r="3.2" /></svg>
+        </div>
+      </div>
+      <button class="hv-run" type="button" data-run hidden>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7.5-4.5z" /></svg>
+        <span class="sr-only">{s.rerun}</span>
+      </button>
+    </div>
+  </div>
+</section>

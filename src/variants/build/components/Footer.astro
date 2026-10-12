@@ -1,0 +1,76 @@
+---
+import Logo from '../../../components/shared/Logo.astro';
+import { getDict, type Lang } from '../../../i18n';
+import { company, social, type OfficeId } from '../../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = getDict(lang);
+const offices: OfficeId[] = ['kl', 'chennai', 'dubai'];
+const year = new Date().getFullYear();
+---
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-top">
+      <div class="ftr-brand">
+        <Logo class="ftr-logo" />
+        <p class="tagline">
+          {t.tagline.lead} <span class="tg-sky">{t.tagline.business}</span>{' '}
+          {t.tagline.meets} <span class="tg-navy">{t.tagline.precision}</span>
+        </p>
+        <ul class="ftr-contact">
+          <li>
+            <span class="ftr-k">{t.footer.email}</span>
+            <a class="ltr-isolate" href={`mailto:${company.email}`}>{company.email}</a>
+          </li>
+          <li>
+            <span class="ftr-k">{t.footer.phone}</span>
+            <a class="ltr-isolate" href={`tel:${company.phoneHref}`}>{company.phone}</a>
+          </li>
+        </ul>
+        {
+          social.length > 0 && (
+            <ul class="ftr-social">
+              {social.map((s) => (
+                <li>
+                  <a href={s.url} rel="noopener" target="_blank">
+                    {s.id}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+
+      <div class="ftr-offices">
+        {
+          offices.map((id) => {
+            const o = t.footer.offices[id];
+            return (
+              <address class="office">
+                <strong>{o.title}</strong>
+                {o.lines.map((l) => (
+                  <span dir={/[A-Za-z]/.test(l) && lang === 'ar' && !/[؀-ۿ]/.test(l) ? 'ltr' : undefined}>{l}</span>
+                ))}
+              </address>
+            );
+          })
+        }
+      </div>
+    </div>
+
+    <div class="ftr-bottom">
+      <p>
+        © <span class="ltr-isolate">{year}</span> {company.legalName} (<span class="ltr-isolate">{company.registration}</span>). {t.footer.rights}
+      </p>
+      <a href="#main" class="ftr-top-link">
+        {t.footer.backToTop}
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4M5 9l5-5 5 5" /></svg>
+      </a>
+    </div>
+  </div>
+</footer>
