@@ -1,0 +1,79 @@
+---
+import Logo from '../../components/shared/Logo.astro';
+import { getDict, type Lang } from '../../i18n';
+import { company, social, type OfficeId } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = getDict(lang);
+const offices: OfficeId[] = ['kl', 'chennai', 'dubai'];
+const year = new Date().getFullYear();
+const years = year > company.foundedCopyrightYear ? `${company.foundedCopyrightYear}–${year}` : `${year}`;
+const tg = t.tagline;
+---
+
+<footer class="border-t border-line bg-paper">
+  <div class="wrap grid gap-12 py-16 lg:grid-cols-12">
+    <div class="lg:col-span-4">
+      <Logo class="h-12 w-auto" />
+      <p class="mt-5 max-w-xs text-[0.95rem] font-semibold text-ink-2">
+        {
+          lang === 'ar' ? (
+            <>
+              {tg.lead} {tg.meets} <span class="text-sky-ink">{tg.business}</span> <span class="text-navy">{tg.precision}</span>
+            </>
+          ) : (
+            <>
+              {tg.lead} <span class="text-sky-ink">{tg.business}</span> {tg.meets} <span class="text-navy">{tg.precision}</span>
+            </>
+          )
+        }
+      </p>
+      <dl class="mt-8 grid gap-3 text-[0.95rem]">
+        <div>
+          <dt class="text-xs font-semibold tracking-[0.12em] text-mute uppercase">{t.footer.email}</dt>
+          <dd><a class="font-semibold text-navy hover:underline ltr-isolate" href={`mailto:${company.email}`}>{company.email}</a></dd>
+        </div>
+        <div>
+          <dt class="text-xs font-semibold tracking-[0.12em] text-mute uppercase">{t.footer.phone}</dt>
+          <dd><a class="font-semibold text-navy hover:underline ltr-isolate" href={`tel:${company.phoneHref}`}>{company.phone}</a></dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="grid gap-10 sm:grid-cols-3 lg:col-span-8">
+      {
+        offices.map((id) => {
+          const o = t.footer.offices[id];
+          return (
+            <address class="not-italic">
+              <p class="text-[0.95rem] font-semibold text-ink">{o.title}</p>
+              <p class="mt-3 text-[0.925rem] leading-relaxed text-mute">
+                {o.lines.map((line, i) => (
+                  <>
+                    {i > 0 && <br />}
+                    <span lang={id === 'kl' ? 'en' : undefined}>{line}</span>
+                  </>
+                ))}
+              </p>
+            </address>
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <div class="border-t border-line">
+    <div class="wrap flex flex-col gap-4 py-6 text-[0.85rem] text-mute md:flex-row md:items-center md:justify-between">
+      <p>
+        © <span class="ltr-isolate">{years}</span> <span lang="en">{company.legalName} ({company.registration})</span>. {t.footer.rights}
+      </p>
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+        {social.map((s) => <a class="hover:text-navy" href={s.url} rel="noopener" target="_blank">{s.id}</a>)}
+        <a class="font-semibold text-navy hover:underline" href="#top">{t.footer.backToTop} ↑</a>
+      </div>
+    </div>
+  </div>
+</footer>

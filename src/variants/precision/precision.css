@@ -1,0 +1,392 @@
+/*
+ * Precision — light, editorial, calm. Tailwind scans only this variant and the shared components.
+ */
+@import 'tailwindcss' source(none);
+@source './';
+@source '../../components/shared';
+
+@import '@fontsource-variable/plus-jakarta-sans/wght.css';
+@import '@fontsource/ibm-plex-sans-arabic/arabic-400.css';
+@import '@fontsource/ibm-plex-sans-arabic/arabic-500.css';
+@import '@fontsource/ibm-plex-sans-arabic/arabic-600.css';
+@import '@fontsource/ibm-plex-sans-arabic/arabic-700.css';
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans Variable', 'IBM Plex Sans Arabic', ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Mono', Consolas, monospace;
+
+  /* Measured on white: ink 17.6:1, ink-2 10.1:1, mute 6.0:1, sky-ink 4.6:1, navy 11.1:1. */
+  --color-ink: #0e1530;
+  --color-ink-2: #2f3a5c;
+  --color-mute: #56607f;
+  --color-line: #e2e6f0;
+  --color-line-strong: #c9d0e2;
+  --color-paper: #ffffff;
+  --color-mist: #f5f7fc;
+  --color-navy: #22338e;
+  --color-navy-deep: #141f5c;
+  --color-sky: #31b3ed; /* decorative / on navy-deep only (5.4:1) */
+  --color-sky-ink: #0a76a8;
+
+  --ease-precise: cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+html[lang='ar'] {
+  --font-sans: 'IBM Plex Sans Arabic', 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, 'Segoe UI', Tahoma, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--color-sky) 30%, transparent);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-navy);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  /* Arabic: no tracking, a touch more leading, never uppercase. */
+  html[lang='ar'] * {
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+  }
+  html[lang='ar'] body {
+    line-height: 1.75;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[76rem] px-5 sm:px-8;
+  }
+
+  .kicker {
+    @apply inline-flex items-center gap-2.5 text-[0.75rem] font-semibold tracking-[0.16em] text-sky-ink uppercase;
+  }
+  .kicker::before {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background: currentColor;
+  }
+  html[lang='ar'] .kicker {
+    @apply text-[0.875rem];
+  }
+
+  .h-display {
+    @apply text-[clamp(2.4rem,6vw,4.75rem)] leading-[1.02] font-semibold tracking-[-0.035em] text-balance;
+  }
+  .h-section {
+    @apply text-[clamp(1.9rem,3.6vw,3rem)] leading-[1.08] font-semibold tracking-[-0.03em] text-balance;
+  }
+  html[lang='ar'] .h-display,
+  html[lang='ar'] .h-section {
+    line-height: 1.3;
+  }
+  .lede {
+    @apply text-[1.0625rem] leading-relaxed text-ink-2 sm:text-lg;
+  }
+
+  .btn,
+  .cf-submit {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[0.95rem] font-semibold transition-[background,color,box-shadow,transform] duration-300;
+    transition-timing-function: var(--ease-precise);
+  }
+  .btn-primary,
+  .cf-submit {
+    @apply bg-navy text-white shadow-[0_8px_24px_-12px_rgb(34_51_142/0.7)] hover:bg-navy-deep;
+  }
+  .btn-ghost {
+    @apply text-navy ring-1 ring-line-strong ring-inset hover:bg-mist hover:ring-navy/40;
+  }
+  .btn-light {
+    @apply bg-white text-navy hover:bg-mist;
+  }
+  .btn .arrow {
+    transition: transform 0.3s var(--ease-precise);
+  }
+  .btn:hover .arrow {
+    transform: translateX(3px);
+  }
+  html[dir='rtl'] .btn .arrow {
+    transform: scaleX(-1);
+  }
+  html[dir='rtl'] .btn:hover .arrow {
+    transform: scaleX(-1) translateX(3px);
+  }
+
+  /* Hairline "drafting" grid used behind the hero and the CTA band. */
+  .draft-grid {
+    background-image:
+      linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 70% 65% at 70% 40%, #000 30%, transparent 75%);
+  }
+  html[dir='rtl'] .draft-grid {
+    mask-image: radial-gradient(ellipse 70% 65% at 30% 40%, #000 30%, transparent 75%);
+  }
+
+  /* Reveal-on-scroll: content is visible without JS; with JS it starts hidden until in view. */
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.9s var(--ease-precise),
+      transform 0.9s var(--ease-precise);
+    transition-delay: calc(var(--d, 0) * 90ms);
+  }
+  .js [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    @apply fixed inset-x-0 top-0 z-50 transition-[background,box-shadow,backdrop-filter] duration-300;
+  }
+  .site-header[data-scrolled='true'] {
+    background: rgb(255 255 255 / 0.82);
+    backdrop-filter: saturate(1.4) blur(14px);
+    box-shadow: 0 1px 0 var(--color-line);
+  }
+  .nav-link {
+    @apply relative rounded-full px-3 py-2 text-[0.9rem] font-medium text-ink-2 transition-colors hover:text-navy;
+  }
+  .nav-link[aria-current='true'] {
+    @apply text-navy;
+  }
+  .nav-link[aria-current='true']::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0.75rem;
+    bottom: 0.2rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-sky);
+  }
+
+  .mobile-panel {
+    @apply fixed inset-0 z-[60] flex flex-col bg-paper px-5 pt-5 pb-8;
+  }
+  .mobile-panel[hidden] {
+    display: none;
+  }
+  .mobile-panel a.m-link {
+    @apply block border-b border-line py-4 text-2xl font-semibold tracking-tight text-ink;
+  }
+
+  /* ---------- Hero mark (technical drawing) ---------- */
+  .mark-figure .dim {
+    stroke: var(--color-line-strong);
+    stroke-width: 2;
+    fill: none;
+    vector-effect: non-scaling-stroke;
+  }
+  .mark-figure .dim-label {
+    @apply font-mono;
+    font-size: 44px;
+    letter-spacing: 0.06em;
+    fill: var(--color-mute);
+  }
+  .mark-figure .ping {
+    fill: none;
+    stroke: var(--color-sky);
+    stroke-width: 6;
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+  }
+  .js .mark-figure.is-drawn .ping {
+    animation: ping 3.6s var(--ease-precise) 2.2s infinite;
+  }
+  .js .mark-figure.is-drawn .ping.p2 {
+    animation-delay: 3.4s;
+  }
+  @keyframes ping {
+    0% {
+      transform: scale(0.6);
+      opacity: 0.9;
+    }
+    70%,
+    100% {
+      transform: scale(3.4);
+      opacity: 0;
+    }
+  }
+
+  /* ---------- Promise rail (the four hero slides) ---------- */
+  .promise {
+    @apply relative flex flex-col gap-2 border-t border-line pt-5 pb-2 text-start transition-colors duration-500;
+  }
+  .promise .bar {
+    position: absolute;
+    top: -1px;
+    inset-inline-start: 0;
+    height: 2px;
+    width: 0;
+    background: var(--color-navy);
+  }
+  .promise[data-active='true'] .bar {
+    animation: bar var(--promise-ms, 6000ms) linear forwards;
+  }
+  .promise-rail[data-paused='true'] .promise .bar {
+    animation-play-state: paused;
+  }
+  .promise .num {
+    @apply font-mono text-xs text-mute;
+  }
+  .promise .t {
+    @apply text-[1.05rem] leading-snug font-semibold text-ink-2 transition-colors duration-500;
+  }
+  .promise[data-active='true'] .t {
+    @apply text-navy;
+  }
+  .promise .d {
+    @apply text-[0.925rem] leading-relaxed text-mute;
+  }
+  @keyframes bar {
+    to {
+      width: 100%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .promise .bar {
+      display: none;
+    }
+  }
+
+  /* ---------- Cards ---------- */
+  .card {
+    @apply relative rounded-[1.25rem] border border-line bg-paper transition-[border-color,box-shadow,transform] duration-500;
+    transition-timing-function: var(--ease-precise);
+  }
+  .card:hover {
+    @apply border-line-strong;
+    box-shadow: 0 24px 48px -32px rgb(14 21 48 / 0.35);
+    transform: translateY(-3px);
+  }
+  @media (hover: none) {
+    .card:hover {
+      transform: none;
+    }
+  }
+
+  .browser {
+    @apply overflow-hidden rounded-[0.9rem] border border-line bg-mist;
+    box-shadow: 0 1px 0 rgb(255 255 255 / 0.6) inset;
+  }
+  .browser-bar {
+    @apply flex items-center gap-1.5 border-b border-line bg-paper px-3.5 py-2.5;
+  }
+  .browser-bar i {
+    @apply block size-2.5 rounded-full bg-line-strong;
+  }
+
+  .faq-item summary {
+    @apply flex cursor-pointer list-none items-start justify-between gap-6 py-6 text-[1.075rem] font-semibold text-ink;
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item .plus {
+    @apply relative mt-1.5 size-4 shrink-0;
+  }
+  .faq-item .plus::before,
+  .faq-item .plus::after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 auto;
+    height: 1.5px;
+    background: var(--color-navy);
+    transition: transform 0.35s var(--ease-precise);
+  }
+  .faq-item .plus::after {
+    transform: rotate(90deg);
+  }
+  .faq-item[open] .plus::after {
+    transform: rotate(0deg);
+  }
+  .faq-item .answer {
+    @apply max-w-[46rem] pe-10 pb-6 leading-relaxed text-ink-2;
+  }
+
+  /* ---------- Contact form (shared component, styled here) ---------- */
+  .cf {
+    @apply grid gap-4 sm:grid-cols-2;
+  }
+  .cf-field {
+    @apply flex flex-col gap-1.5;
+  }
+  .cf-field--full,
+  .cf-actions {
+    @apply sm:col-span-2;
+  }
+  .cf-label {
+    @apply text-[0.85rem] font-semibold text-ink-2;
+  }
+  .cf-input {
+    @apply min-h-12 w-full rounded-xl border border-line-strong bg-paper px-4 text-[1rem] text-ink transition-[border-color,box-shadow] duration-200 outline-none;
+  }
+  .cf-input:focus {
+    border-color: var(--color-navy);
+    box-shadow: 0 0 0 4px rgb(34 51 142 / 0.12);
+  }
+  .cf-input:user-invalid {
+    border-color: #b42318;
+  }
+  .cf-input.ltr-isolate {
+    text-align: start;
+  }
+  html[dir='rtl'] .cf-input.ltr-isolate {
+    text-align: end;
+  }
+  .cf-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath stroke='%2356607f' stroke-width='1.6' d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-inline-end: 2.5rem;
+  }
+  html[dir='rtl'] .cf-select {
+    background-position: left 1rem center;
+  }
+  .cf-textarea {
+    @apply min-h-32 py-3;
+    resize: vertical;
+  }
+  .cf-hint {
+    @apply text-[0.8rem] text-mute;
+  }
+  .cf-actions {
+    @apply mt-1 flex flex-col gap-3;
+  }
+  .cf-submit {
+    @apply w-full disabled:cursor-progress disabled:opacity-70;
+  }
+  .cf-status {
+    @apply text-[0.925rem] leading-relaxed empty:hidden;
+  }
+  .cf-status[data-state='success'] {
+    @apply rounded-xl bg-[#ecfdf3] px-4 py-3 text-[#05603a];
+  }
+  .cf-status[data-state='error'] {
+    @apply rounded-xl bg-[#fef3f2] px-4 py-3 text-[#b42318];
+  }
+  .cf-status a {
+    @apply font-semibold underline;
+  }
+}

@@ -11,7 +11,7 @@ import sankoLogo from '../assets/clients/mono/sanko.png';
 import cassandraColor from '../assets/clients/Cassandra.png';
 import crispyColor from '../assets/clients/cc.png';
 import sifColor from '../assets/clients/sif.png';
-import bigblueColor from '../assets/clients/bigblue.svg';
+import bigblueColor from '../assets/clients/bigblue.png';
 import work1 from '../assets/work/port-1.jpg';
 import work2 from '../assets/work/port-2.jpg';
 import work3 from '../assets/work/port-3.jpg';
