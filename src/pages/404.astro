@@ -1,0 +1,41 @@
+---
+/** Bilingual 404. Hostinger serves it via ErrorDocument in public/.htaccess. */
+import Logo from '../components/shared/Logo.astro';
+import en from '../i18n/en';
+import ar from '../i18n/ar';
+import '../styles/base.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{en.notFound.title} · Bi Tech Solutions</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <style>
+      body { margin: 0; min-height: 100svh; display: grid; place-items: center; font-family: system-ui, 'Segoe UI', Tahoma, sans-serif; background: #f4f6fb; color: #0e1530; text-align: center; padding: 1.5rem; box-sizing: border-box; }
+      .logo { width: min(16rem, 70vw); height: auto; margin-bottom: 2rem; }
+      h1 { margin: 0 0 0.5rem; font-size: 1.5rem; }
+      p { margin: 0 0 1rem; color: #4a5578; }
+      a { color: #22338e; font-weight: 600; }
+      section + section { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #dfe4f2; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <Logo class="logo" />
+      <section>
+        <h1>{en.notFound.title}</h1>
+        <p>{en.notFound.body}</p>
+        <a href="/">{en.notFound.home}</a>
+      </section>
+      <section lang="ar" dir="rtl">
+        <h1>{ar.notFound.title}</h1>
+        <p>{ar.notFound.body}</p>
+        <a href="/ar/">{ar.notFound.home}</a>
+      </section>
+    </main>
+  </body>
+</html>

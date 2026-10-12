@@ -1,0 +1,96 @@
+---
+/**
+ * Document shell shared by every variant: <html lang/dir>, SEO head, skip link.
+ * Variants import their own fonts and styles and pass `themeColor` / `bodyClass`.
+ */
+import { SITE_URL, company } from '../lib/site';
+import { getDict, homePath, type Lang } from '../i18n';
+import '../styles/base.css';
+
+interface Props {
+  lang: Lang;
+  /** '' on the live site, '/preview/<id>' for variant previews. */
+  base?: string;
+  noindex?: boolean;
+  themeColor?: string;
+  bodyClass?: string;
+  colorScheme?: 'light' | 'dark';
+}
+
+const { lang, noindex = false, themeColor = '#ffffff', bodyClass = '', colorScheme = 'light' } = Astro.props;
+const t = getDict(lang);
+const canonical = new URL(homePath(lang), SITE_URL).href;
+const alternates = (['en', 'ar'] as Lang[]).map((l) => ({ l, href: new URL(homePath(l), SITE_URL).href }));
+const ogImage = new URL(lang === 'ar' ? '/og-ar.png' : '/og.png', SITE_URL).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: company.brand,
+  legalName: company.legalName,
+  alternateName: company.shortName,
+  url: SITE_URL + '/',
+  logo: SITE_URL + '/logo.png',
+  email: company.email,
+  telephone: company.phone,
+  slogan: 'Where Business Meets Software Precision',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '23-2, Jalan 3A/2B, Taman Desa Bakti',
+    addressLocality: 'Selayang',
+    addressRegion: 'Kuala Lumpur',
+    postalCode: '68100',
+    addressCountry: 'MY',
+  },
+  areaServed: ['MY', 'AE', 'IN'],
+  knowsLanguage: ['en', 'ar'],
+};
+---
+
+<!doctype html>
+<html lang={lang} dir={t.dir} class="no-js" style={`color-scheme: ${colorScheme}`}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    {noindex ? <meta name="robots" content="noindex, nofollow" /> : <link rel="canonical" href={canonical} />}
+    {!noindex && alternates.map(({ l, href }) => <link rel="alternate" hreflang={l} href={href} />)}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={alternates[0].href} />}
+    <meta name="theme-color" content={themeColor} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={company.brand} />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'ar' ? 'ar_AE' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'ar' ? 'en_US' : 'ar_AE'} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t.meta.ogAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <script is:inline>
+      document.documentElement.classList.replace('no-js', 'js');
+      // Old Angular links were hash routes (/#/contactus); map them onto the new sections.
+      if (location.hash.startsWith('#/')) {
+        var old = location.hash.slice(2).split('/')[0];
+        var map = { contactus: 'contact', about: 'about', home: '' };
+        history.replaceState(null, '', location.pathname + (map[old] ? '#' + map[old] : ''));
+      }
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main">{t.a11y.skip}</a>
+    <slot />
+  </body>
+</html>
