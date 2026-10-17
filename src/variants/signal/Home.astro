@@ -1,0 +1,460 @@
+---
+/**
+ * Variant "Signal" — Connect, refined: light + dark themes, Precision's logo masks and nav
+ * indicator, Build's scroll-lit intro, rendering screenshots and CTA terminal.
+ * See VARIANT.md for the motion plan, budgets and fallbacks.
+ */
+import { Picture, Image, getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Logo from '../../components/shared/Logo.astro';
+import ContactForm from '../../components/shared/ContactForm.astro';
+import HeroNetwork from './HeroNetwork.astro';
+import ServiceDiagram from './ServiceDiagram.astro';
+import Icon from './Icon.astro';
+import { getDict, homePath, otherLang } from '../../i18n';
+import { navItems } from '../../lib/nav';
+import { clients, work, company, serviceImages, social } from '../../lib/site';
+import type { VariantProps } from '../index';
+import { signalStrings, CTA_COMMAND } from './strings';
+import './signal.css';
+
+const { lang, base, noindex } = Astro.props as VariantProps;
+const t = getDict(lang);
+const nav = navItems(t);
+const home = homePath(lang, base);
+const alt = homePath(otherLang(lang), base);
+const [lead, ...rotating] = t.hero.slides;
+const year = new Date().getFullYear();
+const whyIcons = ['puzzle', 'team', 'flow', 'shield'] as const;
+const pad = (n: number) => String(n).padStart(2, '0');
+const s = signalStrings[lang];
+const introWords = t.intro.title.split(' ');
+// Client logos become CSS masks so one file works in both themes (grey → brand on hover).
+const logoMasks = await Promise.all(
+  clients.map(async (c) => {
+    const img = await getImage({ src: c.logo, height: 128, format: 'webp' });
+    return { name: c.name, src: img.src, ratio: (c.logo.width / c.logo.height).toFixed(3) };
+  }),
+);
+// Toggle icon: the logo's node, with four signal arcs that read as sun rays when lit.
+const arcs = [0, 90, 180, 270].map((deg) => {
+  const r = 9.4;
+  const a0 = ((deg + 18) * Math.PI) / 180;
+  const a1 = ((deg + 72) * Math.PI) / 180;
+  const pt = (a: number) => `${(12 + Math.cos(a) * r).toFixed(2)} ${(12 + Math.sin(a) * r).toFixed(2)}`;
+  return `M${pt(a0)}A${r} ${r} 0 0 1 ${pt(a1)}`;
+});
+---
+
+<Base lang={lang} base={base} noindex={noindex} themeColor="#050817" colorScheme="dark" bodyClass="v-signal">
+  <script is:inline slot="head">
+    // Theme before first paint: saved choice, else the system setting. Motion class with a 4 s
+    // safety net: if the page script never arrives, everything shows in its final state.
+    (function () {
+      var d = document.documentElement, t;
+      try { t = localStorage.getItem('bt-theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      d.dataset.theme = t;
+      d.style.colorScheme = t;
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.content = t === 'light' ? '#f5f7fc' : '#050817';
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        d.classList.add('sg-motion');
+        setTimeout(function () { if (!window.__sgReady) d.classList.remove('sg-motion'); }, 4000);
+      }
+    })();
+  </script>
+  <header class="sg-header" data-header>
+    <div class="sg-wrap sg-header-inner">
+      <a class="sg-brand" href={home} aria-label={company.brand}>
+        <Logo tone="onDark" class="sg-brand-logo sg-logo" title="" />
+      </a>
+
+      <nav class="sg-nav" aria-label={t.a11y.primaryNav}>
+        <ul>
+          {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        </ul>
+        <span class="sg-nav-ind" aria-hidden="true" data-nav-ind></span>
+      </nav>
+
+      <div class="sg-header-actions">
+        <button type="button" class="sg-theme" data-theme-toggle data-label-light={s.toLight} data-label-dark={s.toDark} aria-label={s.toLight} title={s.theme}>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <mask id="sg-moon-cut">
+              <rect width="24" height="24" fill="#fff" />
+              <circle class="sg-tt-cut" cx="17.5" cy="7" r="6" fill="#000" />
+            </mask>
+            <circle class="sg-tt-core" cx="12" cy="12" r="5" mask="url(#sg-moon-cut)" />
+            <g class="sg-tt-arcs">{arcs.map((d) => <path d={d} />)}</g>
+          </svg>
+        </button>
+        <a class="sg-lang" href={alt} hreflang={t.langSwitch.hreflang} lang={t.langSwitch.hreflang} aria-label={t.langSwitch.aria}>
+          {t.langSwitch.label}
+        </a>
+        <a class="sg-btn sg-btn--primary sg-btn--sm sg-header-cta" href="#contact">{t.nav.cta}</a>
+        <button class="sg-menu-btn" type="button" aria-expanded="false" aria-controls="sg-menu" data-menu-open data-label-close={t.a11y.closeMenu}>
+          <span class="sr-only">{t.a11y.menu}</span>
+          <span class="sg-menu-icon" aria-hidden="true"><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="sg-menu" id="sg-menu" data-menu hidden>
+      <nav aria-label={t.a11y.primaryNav}>
+        <ul>
+          {nav.map((n, i) => <li><a href={n.href} data-menu-link><span class="sg-mono">{pad(i + 1)}</span>{n.label}</a></li>)}
+        </ul>
+      </nav>
+      <div class="sg-menu-foot">
+        <a class="sg-btn sg-btn--primary" href="#contact" data-menu-link>{t.nav.cta}</a>
+        <a class="sg-lang" href={alt} hreflang={t.langSwitch.hreflang} lang={t.langSwitch.hreflang} aria-label={t.langSwitch.aria}>{t.langSwitch.label}</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="sg-hero" aria-labelledby="hero-title">
+      <div class="sg-hero-bg" aria-hidden="true">
+        <HeroNetwork />
+        <canvas class="sg-hero-canvas" data-hero-canvas></canvas>
+        <div class="sg-hero-vignette"></div>
+      </div>
+
+      <div class="sg-wrap sg-hero-inner">
+        <p class="sg-eyebrow" data-hero-in><span class="sg-dot" aria-hidden="true"></span>{t.hero.eyebrow}</p>
+        <h1 id="hero-title" class="sg-hero-title" data-hero-in>{lead.title}</h1>
+        <p class="sg-hero-lead" data-hero-in>{lead.text}</p>
+        <div class="sg-hero-ctas" data-hero-in>
+          <a class="sg-btn sg-btn--primary" href="#contact">{t.hero.cta}<Icon name="arrow" class="sg-btn-icon" /></a>
+          <a class="sg-btn sg-btn--ghost" href="#work">{t.hero.ctaSecondary}</a>
+        </div>
+
+        <div class="sg-signal" data-signal data-hero-in>
+          <div class="sg-signal-tabs" role="tablist" aria-label={t.hero.eyebrow}>
+            {
+              rotating.map((_, i) => (
+                <button
+                  type="button"
+                  role="tab"
+                  id={`sig-tab-${i}`}
+                  aria-controls={`sig-panel-${i}`}
+                  aria-selected={i === 0 ? 'true' : 'false'}
+                  tabindex={i === 0 ? 0 : -1}
+                  data-signal-tab={i}
+                >
+                  <span class="sg-mono">{pad(i + 2)}</span>
+                  <span class="sg-signal-bar"><span></span></span>
+                </button>
+              ))
+            }
+            <button type="button" class="sg-signal-pause" data-signal-pause aria-pressed="false" data-label-pause={t.a11y.pause} data-label-play={t.a11y.play}>
+              <span class="sr-only">{t.a11y.pause}</span>
+              <svg viewBox="0 0 16 16" aria-hidden="true" class="sg-ico-pause"><rect x="4" y="3" width="2.5" height="10" rx="1" /><rect x="9.5" y="3" width="2.5" height="10" rx="1" /></svg>
+              <svg viewBox="0 0 16 16" aria-hidden="true" class="sg-ico-play"><path d="M5 3.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L5.9 2.7a.6.6 0 0 0-.9.5Z" /></svg>
+            </button>
+          </div>
+          <div class="sg-signal-panels">
+            {
+              rotating.map((s, i) => (
+                <div class="sg-signal-panel" role="tabpanel" id={`sig-panel-${i}`} aria-labelledby={`sig-tab-${i}`} data-signal-panel={i} data-active={i === 0 ? 'true' : 'false'}>
+                  <h2 class="sg-signal-title">{s.title}</h2>
+                  <p>{s.text}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <a class="sg-scroll-cue" href="#intro" aria-hidden="true" tabindex="-1"><span></span></a>
+    </section>
+
+    <!-- INTRO -->
+    <section class="sg-section sg-intro" id="intro">
+      <div class="sg-wrap sg-intro-grid">
+        <p class="sg-kicker" data-reveal>{t.intro.kicker}</p>
+        <div>
+          <h2 class="sg-statement" data-words>
+            <span class="sr-only">{t.intro.title}</span>
+            <span aria-hidden="true">{introWords.map((w) => <span class="sg-word">{w} </span>)}</span>
+          </h2>
+          <p class="sg-intro-body" data-reveal>{t.intro.body}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT / MISSION -->
+    <section class="sg-section sg-mission" id="about" aria-labelledby="about-title">
+      <div class="sg-wrap">
+        <div class="sg-pulse-rule" aria-hidden="true">
+          <svg viewBox="0 0 1200 80" preserveAspectRatio="none"><path pathLength="1" d="M0 40 H470 L500 40 L530 6 L566 74 L596 40 H640 L660 40 A14 14 0 1 0 688 40 H1200" /></svg>
+        </div>
+        <div class="sg-mission-grid">
+          <div>
+            <p class="sg-kicker" data-reveal>{t.mission.kicker}</p>
+            <h2 id="about-title" class="sg-h2" data-reveal>{t.mission.title}</h2>
+          </div>
+          <div class="sg-mission-body">
+            {t.mission.body.map((p) => <p data-reveal>{p}</p>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="sg-section sg-why" aria-labelledby="why-title">
+      <div class="sg-wrap">
+        <div class="sg-section-head">
+          <p class="sg-kicker" data-reveal>{t.why.kicker}</p>
+          <h2 id="why-title" class="sg-h2" data-reveal>{t.why.title}</h2>
+          <div class="sg-section-sub">
+            {t.why.body.map((p) => <p data-reveal>{p}</p>)}
+          </div>
+        </div>
+        <ul class="sg-why-grid" role="list">
+          {
+            t.why.items.map((item, i) => (
+              <li class="sg-card sg-why-card" data-reveal data-glow>
+                <span class="sg-why-icon"><Icon name={whyIcons[i]} /></span>
+                <span class="sg-mono sg-why-num">{pad(i + 1)}</span>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="sg-section sg-services" id="services" aria-labelledby="services-title">
+      <div class="sg-wrap">
+        <div class="sg-section-head">
+          <p class="sg-kicker" data-reveal>{t.services.kicker}</p>
+          <h2 id="services-title" class="sg-h2" data-reveal>{t.services.title}</h2>
+          <div class="sg-section-sub"><p data-reveal>{t.services.intro}</p></div>
+        </div>
+      </div>
+
+      <div class="sg-svc-stage" data-svc-stage style={`--svc-count: ${t.services.items.length}`}>
+        <div class="sg-svc-sticky">
+          <div class="sg-wrap sg-svc-grid">
+            <div class="sg-svc-diagram" aria-hidden="true">
+              <ServiceDiagram ids={t.services.items.map((s) => s.id)} />
+            </div>
+            <div class="sg-svc-panel">
+              <div class="sg-svc-progress" aria-hidden="true">
+                <span class="sg-mono" data-svc-current>01</span>
+                <span class="sg-svc-track"><span data-svc-bar></span></span>
+                <span class="sg-mono">{pad(t.services.items.length)}</span>
+              </div>
+              <ol class="sg-svc-list" role="list">
+                {
+                  t.services.items.map((s, i) => {
+                    const img = serviceImages[s.id as keyof typeof serviceImages];
+                    return (
+                      <li class="sg-svc-item" data-svc-item={i} data-active={i === 0 ? 'true' : 'false'}>
+                        <div class="sg-svc-meta">
+                          <span class="sg-svc-icon"><Icon name={s.id} /></span>
+                          <span class="sg-mono">{pad(i + 1)}</span>
+                        </div>
+                        <h3>{s.title}</h3>
+                        <p>{s.body}</p>
+                        {img && (
+                          <div class="sg-svc-img">
+                            <Image src={img} alt="" widths={[240, 400]} sizes="(min-width: 1024px) 240px, 50vw" loading="lazy" />
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })
+                }
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTS -->
+    <section class="sg-section sg-clients" id="clients" aria-labelledby="clients-title">
+      <div class="sg-wrap">
+        <div class="sg-section-head sg-section-head--center">
+          <p class="sg-kicker" data-reveal>{t.clients.kicker}</p>
+          <h2 id="clients-title" class="sg-h2" data-reveal>{t.clients.title}</h2>
+          <div class="sg-section-sub"><p data-reveal>{t.clients.body}</p></div>
+        </div>
+        <ul class="sg-logos" role="list">
+          {
+            logoMasks.map((c) => (
+              <li>
+                <span class="sg-logo-mask" role="img" aria-label={c.name} style={`--logo: url(${c.src}); --r: ${c.ratio}; aspect-ratio: ${c.ratio}`}></span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section class="sg-cta" aria-labelledby="cta-title">
+      <div class="sg-wrap">
+        <div class="sg-cta-card" data-reveal>
+          <svg class="sg-cta-arcs" viewBox="0 0 200 200" aria-hidden="true">
+            <path d="M40 30 A130 130 0 0 1 170 160" /><path d="M40 70 A90 90 0 0 1 130 160" /><path d="M40 110 A50 50 0 0 1 90 160" />
+          </svg>
+          <div class="sg-cta-copy">
+            <h2 id="cta-title">{t.ctaBand.title}</h2>
+            <p class="sg-term" dir="ltr" data-term style={`--n: ${CTA_COMMAND.length}`}>
+              <span class="sg-term-prompt" aria-hidden="true">$</span>
+              <span class="sg-term-cmd">{CTA_COMMAND}</span><span class="sg-term-caret" aria-hidden="true"></span>
+            </p>
+          </div>
+          <a class="sg-btn sg-btn--primary" href="#contact">{t.ctaBand.button}<Icon name="arrow" class="sg-btn-icon" /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="sg-section sg-work" id="work" aria-labelledby="work-title">
+      <div class="sg-wrap">
+        <div class="sg-section-head">
+          <p class="sg-kicker" data-reveal>{t.work.kicker}</p>
+          <h2 id="work-title" class="sg-h2" data-reveal>{t.work.title}</h2>
+          <div class="sg-section-sub"><p data-reveal>{t.work.body}</p></div>
+        </div>
+        <ul class="sg-work-grid" role="list">
+          {
+            work.map((w) => {
+              const copy = t.work.items[w.id];
+              return (
+                <li class="sg-work-item" data-reveal data-load>
+                  <article class="sg-work-card" data-tilt>
+                    <div class="sg-browser">
+                      <div class="sg-browser-bar" aria-hidden="true">
+                        <span class="sg-browser-dots"><i></i><i></i><i></i></span>
+                        <span class="sg-browser-url">{w.name}<span class="sg-browser-load"></span></span>
+                      </div>
+                      <div class="sg-browser-shot">
+                        <Picture
+                          src={w.shot}
+                          formats={['avif', 'webp']}
+                          widths={[480, 760, 1100]}
+                          sizes="(min-width: 960px) 560px, 92vw"
+                          alt={lang === 'ar' ? `لقطة من موقع ${w.name}` : `${w.name} website`}
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                    <div class="sg-work-copy">
+                      <p class="sg-work-tag sg-mono">{copy.tag}</p>
+                      <h3>{w.name}</h3>
+                      <p>{copy.summary}</p>
+                    </div>
+                  </article>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="sg-section sg-faq" id="faq" aria-labelledby="faq-title">
+      <div class="sg-wrap sg-faq-grid">
+        <div class="sg-faq-head">
+          <p class="sg-kicker" data-reveal>{t.faq.kicker}</p>
+          <h2 id="faq-title" class="sg-h2" data-reveal>{t.faq.title}</h2>
+        </div>
+        <div class="sg-faq-list">
+          {
+            t.faq.items.map((item, i) => (
+              <details class="sg-faq-item" name="sg-faq" open={i === 0} data-reveal>
+                <summary>
+                  <span class="sg-mono">{pad(i + 1)}</span>
+                  <span class="sg-faq-q">{item.q}</span>
+                  <span class="sg-faq-toggle" aria-hidden="true"></span>
+                </summary>
+                <p>{item.a}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="sg-section sg-contact" id="contact" aria-labelledby="contact-title">
+      <div class="sg-contact-glow" aria-hidden="true"></div>
+      <div class="sg-wrap sg-contact-grid">
+        <div class="sg-contact-copy">
+          <p class="sg-kicker" data-reveal>{t.contact.kicker}</p>
+          <h2 id="contact-title" class="sg-contact-title" data-reveal>{t.contact.title}</h2>
+          <ul class="sg-pillars" role="list">
+            {t.contact.pillars.map((p) => <li data-reveal><span>{p.a}</span> <strong>{p.b}</strong></li>)}
+          </ul>
+          <div class="sg-direct" data-reveal>
+            <p class="sg-direct-label">{t.contact.direct}</p>
+            <a href={`mailto:${company.email}`}><Icon name="mail" /><span class="ltr-isolate">{company.email}</span></a>
+            <a href={`tel:${company.phoneHref}`}><Icon name="phone" /><span class="ltr-isolate">{company.phone}</span></a>
+          </div>
+        </div>
+        <div class="sg-form-card" data-reveal>
+          <p class="sg-kicker">{t.contact.form.kicker}</p>
+          <h3 class="sg-form-title">{t.contact.form.title}</h3>
+          <ContactForm lang={lang} />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sg-footer">
+    <div class="sg-wrap">
+      <div class="sg-footer-top">
+        <div class="sg-footer-brand">
+          <Logo tone="onDark" class="sg-footer-logo sg-logo" />
+          <p class="sg-tagline">
+            {t.tagline.lead} <span class="sg-sky">{t.tagline.business}</span> {t.tagline.meets} <span class="sg-sky-soft">{t.tagline.precision}</span>
+          </p>
+          <div class="sg-footer-contact">
+            <a href={`mailto:${company.email}`}><span class="sg-footer-label">{t.footer.email}</span><span class="ltr-isolate">{company.email}</span></a>
+            <a href={`tel:${company.phoneHref}`}><span class="sg-footer-label">{t.footer.phone}</span><span class="ltr-isolate">{company.phone}</span></a>
+          </div>
+        </div>
+        <div class="sg-offices">
+          {
+            (['kl', 'chennai', 'dubai'] as const).map((id) => {
+              const o = t.footer.offices[id];
+              return (
+                <address class="sg-office">
+                  <strong>{o.title}</strong>
+                  {o.lines.map((l) => <span>{l}</span>)}
+                </address>
+              );
+            })
+          }
+        </div>
+      </div>
+      <div class="sg-footer-bottom">
+        <p>
+          © <span class="ltr-isolate">{year}</span> {company.legalName} (<span class="ltr-isolate">{company.registration}</span>). {t.footer.rights}
+        </p>
+        {
+          social.length > 0 && (
+            <ul class="sg-social" role="list">
+              {social.map((s) => <li><a href={s.url} rel="noopener" target="_blank">{s.id}</a></li>)}
+            </ul>
+          )
+        }
+        <a class="sg-top" href="#main">{t.footer.backToTop} ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    import { initPage } from './signal';
+    initPage();
+  </script>
+</Base>

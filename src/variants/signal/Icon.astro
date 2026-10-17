@@ -1,0 +1,37 @@
+---
+/** Line icons (24px grid, 1.6 stroke, currentColor) used by the Signal variant. */
+interface Props {
+  name: string;
+  class?: string;
+}
+const { name, class: cls = '' } = Astro.props;
+
+const paths: Record<string, string> = {
+  ux: '<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 9v11"/><circle cx="5.8" cy="6.5" r=".6" fill="currentColor"/>',
+  web: '<rect x="2.5" y="4" width="19" height="14" rx="2.5"/><path d="M8 21h8M12 18v3M8.5 9.5 6 11.5l2.5 2M15.5 9.5l2.5 2-2.5 2M13 8.5l-2 6"/>',
+  android: '<rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/>',
+  api: '<path d="M8 4c-2 0-2.5 1-2.5 2.5v2.8c0 1.2-.6 2-1.8 2.2 1.2.2 1.8 1 1.8 2.2v2.8C5.5 18 6 20 8 20M16 4c2 0 2.5 1 2.5 2.5v2.8c0 1.2.6 2 1.8 2.2-1.2.2-1.8 1-1.8 2.2v2.8C18.5 18 18 20 16 20"/><circle cx="9.5" cy="12" r=".9" fill="currentColor"/><circle cx="12" cy="12" r=".9" fill="currentColor"/><circle cx="14.5" cy="12" r=".9" fill="currentColor"/>',
+  data: '<ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v6.5c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V5.5M4.5 12v6.3c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V12"/>',
+  qa: '<path d="M12 2.8 4.5 5.6v5.8c0 4.6 3.1 8.3 7.5 9.8 4.4-1.5 7.5-5.2 7.5-9.8V5.6L12 2.8Z"/><path d="m8.6 12 2.4 2.4 4.6-4.8"/>',
+  puzzle: '<path d="M10 3.5h4v2.2a1.8 1.8 0 1 0 3.5 0V3.5H20v6h-2.2a1.8 1.8 0 1 0 0 3.5H20v7.5h-6v-2.2a1.8 1.8 0 1 0-3.5 0v2.2H4v-6h2.2a1.8 1.8 0 1 0 0-3.5H4v-8h6Z"/>',
+  team: '<circle cx="9" cy="8" r="3.2"/><path d="M3 19.5c.6-3.3 3-5.2 6-5.2s5.4 1.9 6 5.2"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.4c2.3.2 4 1.8 4.5 4.6"/>',
+  flow: '<circle cx="5.5" cy="6" r="2.5"/><circle cx="18.5" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 6h8M7 8.2l3.8 7.4M17 8.2l-3.8 7.4"/>',
+  shield: '<path d="M12 2.8 4.5 5.6v5.8c0 4.6 3.1 8.3 7.5 9.8 4.4-1.5 7.5-5.2 7.5-9.8V5.6L12 2.8Z"/><path d="M12 7.5v5M12 15.8v.2"/>',
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/>',
+  phone: '<path d="M6.6 3.5h2.6l1.3 4-2 1.4a12 12 0 0 0 6.6 6.6l1.4-2 4 1.3v2.6a2 2 0 0 1-2.2 2C10.4 19 5 13.6 4.6 5.7a2 2 0 0 1 2-2.2Z"/>',
+};
+---
+
+<svg
+  class:list={['sg-icon', cls, { 'sg-icon--flip': name === 'arrow' }]}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+  set:html={paths[name] ?? ''}
+/>
