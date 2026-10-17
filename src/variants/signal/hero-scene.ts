@@ -173,8 +173,10 @@ export function startHeroScene(canvas: HTMLCanvasElement, host: HTMLElement, rtl
 
   // ---- theme ----
   let light = false;
-  const setTheme = () => {
+  let flash = 0; // 1 → 0: a ripple runs out through the network after a theme switch
+  const setTheme = (e?: Event) => {
     light = document.documentElement.dataset.theme === 'light';
+    if (e) flash = 1;
     pointMat.uniforms.uLight.value = light ? 1 : 0;
     pointMat.blending = lineMat.blending = light ? NormalBlending : AdditiveBlending;
     pointMat.needsUpdate = lineMat.needsUpdate = true;
@@ -244,6 +246,8 @@ export function startHeroScene(canvas: HTMLCanvasElement, host: HTMLElement, rtl
     pointer.y += (pointer.ty - pointer.y) * 0.1;
     pointer.active += (pointer.tactive - pointer.active) * 0.06;
     spin += dt * 0.09;
+    flash = Math.max(0, flash - dt / 1.1);
+    const wave = (1 - flash) * R * 1.6;
     tiltX += (0.32 - pointer.ny * 0.22 - tiltX) * 0.04;
     tiltY += (pointer.nx * 0.35 - tiltY) * 0.04;
 
@@ -307,7 +311,11 @@ export function startHeroScene(canvas: HTMLCanvasElement, host: HTMLElement, rtl
         const n = k ? b : a;
         const dx = pointer.x - pos[n * 3];
         const dy = pointer.y - pos[n * 3 + 1];
-        const glow = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / (BEND * 1.5)) * pointer.active * depth[n];
+        let glow = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / (BEND * 1.5)) * pointer.active * depth[n];
+        if (flash > 0) {
+          const d = Math.hypot(pos[n * 3] - cx, pos[n * 3 + 1]);
+          glow = Math.max(glow, Math.max(0, 1 - Math.abs(d - wave) / 70) * flash * (0.4 + depth[n] * 0.6));
+        }
         const dk = 0.06 + depth[n] * depth[n] * 0.5;
         const o = e * 8 + k * 4;
         if (light) {

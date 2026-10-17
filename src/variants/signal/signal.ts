@@ -54,10 +54,10 @@ function initTheme(reduce: boolean) {
   };
   sync();
 
-  btn.addEventListener('click', () => {
+  const toggle = () => {
     const next = root.dataset.theme === 'light' ? 'dark' : 'light';
     if (reduce || !document.startViewTransition) return apply(next, true);
-    // The new theme spreads in a circle from the toggle.
+    // The new theme spreads in a circle from the node, wherever the cord has it.
     const r = btn.getBoundingClientRect();
     const x = r.left + r.width / 2;
     const y = r.top + r.height / 2;
@@ -71,7 +71,10 @@ function initTheme(reduce: boolean) {
         ),
       )
       .catch(() => {});
-  });
+  };
+  const wrap = btn.closest<HTMLElement>('[data-pull]');
+  if (wrap && !reduce) initPullCord(wrap, btn, toggle);
+  else btn.addEventListener('click', toggle);
 
   // Until the visitor picks one, follow the system setting live.
   matchMedia('(prefers-color-scheme: light)').addEventListener('change', (m) => {
@@ -83,6 +86,101 @@ function initTheme(reduce: boolean) {
     }
     if (!saved) apply(m.matches ? 'light' : 'dark', false);
   });
+}
+
+/* ---------------- pull-cord: drag the node down and let go, or just click ---------------- */
+const HINT_KEY = 'bt-pull-hint';
+const PULL_MAX = 34; // px the node can travel (rubber-banded)
+const PULL_FIRE = 14; // px past which letting go switches the theme
+
+function initPullCord(wrap: HTMLElement, btn: HTMLButtonElement, toggle: () => void) {
+  let spring: Animation | null = null;
+  let startY = 0;
+  let pull = 0;
+  let dragging = false;
+  let moved = false;
+  let suppressClick = false;
+
+  // Overshoot past the rest point, then settle: the cord's bounce.
+  const springBack = (from: number, tug = false) => {
+    spring?.cancel();
+    wrap.style.removeProperty('--pull');
+    const frames: Keyframe[] = [
+      { '--pull': '-6px', offset: tug ? 0.42 : 0.32 },
+      { '--pull': '3px', offset: tug ? 0.64 : 0.58 },
+      { '--pull': '-1px', offset: 0.82 },
+      { '--pull': '0px' },
+    ];
+    if (tug) frames.unshift({ '--pull': '0px' }, { '--pull': `${from}px`, offset: 0.16 });
+    else frames.unshift({ '--pull': `${from}px` });
+    spring = wrap.animate(frames, { duration: tug ? 820 : 720, easing: 'ease-out' });
+  };
+  // A pulse runs down the cord; the theme flips as it reaches the node.
+  const fire = (from: number, tug = false) => {
+    springBack(from, tug);
+    wrap.classList.remove('is-pulsing');
+    void wrap.offsetWidth;
+    wrap.classList.add('is-pulsing');
+    setTimeout(toggle, 200);
+  };
+
+  btn.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0) return;
+    dragging = true;
+    moved = false;
+    suppressClick = false;
+    startY = e.clientY;
+    btn.setPointerCapture(e.pointerId);
+  });
+  btn.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const dy = e.clientY - startY;
+    if (!moved && Math.abs(dy) < 4) return;
+    if (!moved) {
+      moved = true;
+      spring?.cancel();
+      wrap.classList.add('is-dragging');
+    }
+    pull = PULL_MAX * (1 - Math.exp(-Math.max(0, dy) / PULL_MAX));
+    wrap.style.setProperty('--pull', `${pull.toFixed(1)}px`);
+  });
+  const release = (cancelled: boolean) => {
+    if (!dragging) return;
+    dragging = false;
+    if (!moved) return; // a plain press: the click handler takes it
+    suppressClick = true;
+    wrap.classList.remove('is-dragging');
+    if (!cancelled && pull >= PULL_FIRE) fire(pull);
+    else springBack(pull);
+    pull = 0;
+  };
+  btn.addEventListener('pointerup', () => release(false));
+  btn.addEventListener('pointercancel', () => release(true));
+  // Click, tap, Enter and Space: the cord gives a short tug of its own.
+  btn.addEventListener('click', () => {
+    if (suppressClick) {
+      suppressClick = false;
+      return;
+    }
+    fire(12, true);
+  });
+
+  // First visit only: one sway so the cord gets noticed.
+  try {
+    if (localStorage.getItem(HINT_KEY) || localStorage.getItem(THEME_KEY)) return;
+    localStorage.setItem(HINT_KEY, '1');
+  } catch {
+    return;
+  }
+  setTimeout(() => {
+    wrap.classList.add('is-hint');
+    const done = (e: AnimationEvent) => {
+      if (e.target !== wrap) return; // the cord's pulse bubbles here too
+      wrap.classList.remove('is-hint');
+      wrap.removeEventListener('animationend', done);
+    };
+    wrap.addEventListener('animationend', done);
+  }, 2200);
 }
 
 /* ---------------- one-shot classes when an element comes into view ---------------- */

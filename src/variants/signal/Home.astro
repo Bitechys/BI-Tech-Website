@@ -78,16 +78,19 @@ const arcs = [0, 90, 180, 270].map((deg) => {
       </nav>
 
       <div class="sg-header-actions">
-        <button type="button" class="sg-theme" data-theme-toggle data-label-light={s.toLight} data-label-dark={s.toDark} aria-label={s.toLight} title={s.theme}>
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <mask id="sg-moon-cut">
-              <rect width="24" height="24" fill="#fff" />
-              <circle class="sg-tt-cut" cx="17.5" cy="7" r="6" fill="#000" />
-            </mask>
-            <circle class="sg-tt-core" cx="12" cy="12" r="5" mask="url(#sg-moon-cut)" />
-            <g class="sg-tt-arcs">{arcs.map((d) => <path d={d} />)}</g>
-          </svg>
-        </button>
+        <div class="sg-pull" data-pull>
+          <span class="sg-pull-cord" aria-hidden="true"><span class="sg-pull-pulse"></span></span>
+          <button type="button" class="sg-theme" data-theme-toggle data-label-light={s.toLight} data-label-dark={s.toDark} aria-label={s.toLight} title={s.theme}>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <mask id="sg-moon-cut">
+                <rect width="24" height="24" fill="#fff" />
+                <circle class="sg-tt-cut" cx="17.5" cy="7" r="6" fill="#000" />
+              </mask>
+              <circle class="sg-tt-core" cx="12" cy="12" r="5" mask="url(#sg-moon-cut)" />
+              <g class="sg-tt-arcs">{arcs.map((d) => <path d={d} />)}</g>
+            </svg>
+          </button>
+        </div>
         <a class="sg-lang" href={alt} hreflang={t.langSwitch.hreflang} lang={t.langSwitch.hreflang} aria-label={t.langSwitch.aria}>
           {t.langSwitch.label}
         </a>
