@@ -2005,110 +2005,6 @@
   opacity: 1;
 }
 
-/* ---------- pull-cord: the toggle hangs from the top edge on a signal line ----------
-   --pull is how far the node is drawn down (px). signal.ts sets it while dragging and
-   springs it back with the Web Animations API, so it is registered to interpolate. */
-@property --pull {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 0px;
-}
-@property --hover {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 0px;
-}
-.sg-pull {
-  --cord: calc((var(--header-h) - 2.5rem) / 2);
-  position: relative;
-  flex: none;
-  display: grid;
-  transform-origin: 50% calc(-1 * var(--cord));
-  transition: --hover 0.25s var(--ease);
-}
-.no-js .sg-pull {
-  display: none;
-}
-.sg-pull .sg-theme {
-  position: relative;
-  transform: translateY(calc(var(--pull) + var(--hover)));
-  cursor: grab;
-  touch-action: none;
-  -webkit-user-select: none;
-  user-select: none;
-}
-.sg-pull.is-dragging .sg-theme {
-  cursor: grabbing;
-}
-.sg-pull:hover {
-  --hover: 3px;
-}
-.sg-pull.is-dragging {
-  --hover: 0px;
-}
-.sg-pull-cord {
-  position: absolute;
-  inset-inline-start: 50%;
-  inset-block-start: calc(-1 * var(--cord));
-  width: 1.5px;
-  height: calc(var(--cord) + var(--pull) + var(--hover) + 1px);
-  margin-inline-start: -0.75px;
-  border-radius: 1px;
-  background: linear-gradient(to bottom, transparent, var(--line-2) 35%, var(--sky));
-  pointer-events: none;
-}
-/* The signal that runs down the cord just before the theme flips. */
-.sg-pull-pulse {
-  position: absolute;
-  inset-inline-start: 50%;
-  inset-block-start: 0;
-  width: 5px;
-  height: 5px;
-  margin: -2.5px 0 0 -2.5px;
-  border-radius: 50%;
-  background: var(--sky);
-  box-shadow: 0 0 8px var(--sky);
-  opacity: 0;
-}
-.sg-pull.is-pulsing .sg-pull-pulse {
-  animation: sg-pull-pulse 0.24s cubic-bezier(0.55, 0, 0.75, 0.4) forwards;
-}
-@keyframes sg-pull-pulse {
-  0% {
-    inset-block-start: 0;
-    opacity: 0;
-  }
-  25% {
-    opacity: 1;
-  }
-  100% {
-    inset-block-start: 100%;
-    opacity: 1;
-  }
-}
-/* First visit only: the cord sways once so people notice it can be pulled. */
-.sg-pull.is-hint {
-  animation: sg-pull-sway 1.6s var(--ease);
-}
-@keyframes sg-pull-sway {
-  0%,
-  100% {
-    transform: rotate(0);
-  }
-  18% {
-    transform: rotate(9deg);
-  }
-  40% {
-    transform: rotate(-6deg);
-  }
-  62% {
-    transform: rotate(3.5deg);
-  }
-  82% {
-    transform: rotate(-1.5deg);
-  }
-}
-
 /* Circular reveal from the toggle (signal.ts drives the clip-path on the new snapshot). */
 ::view-transition-old(root),
 ::view-transition-new(root) {
@@ -2216,14 +2112,7 @@
   }
   .sg-dot,
   .sg-scroll-cue span,
-  .sg-term-caret,
-  .sg-pull {
+  .sg-term-caret {
     animation: none;
-  }
-  .sg-pull:hover {
-    --hover: 0px;
-  }
-  .sg-pull-pulse {
-    display: none;
   }
 }
